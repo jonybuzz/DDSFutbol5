@@ -1,4 +1,4 @@
 /bin
 
-joda-time-2.3-dist/
-/.metadata/
+/joda-time-2.3-dist
+.metadata
