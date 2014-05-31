@@ -5,6 +5,9 @@ import java.util.LinkedList;
 public class LinkedListConTope<E> extends LinkedList<E> {
 
 	private static final long serialVersionUID = 1L;
+	/**
+	 * @uml.property  name="max"
+	 */
 	private int max;
 	
 	public LinkedListConTope(int max){
@@ -19,5 +22,11 @@ public class LinkedListConTope<E> extends LinkedList<E> {
 		else
 			return add(j);
 
+	}
+	
+	public boolean completo(){
+		
+		return (this.size() == max);
+		
 	}
 }

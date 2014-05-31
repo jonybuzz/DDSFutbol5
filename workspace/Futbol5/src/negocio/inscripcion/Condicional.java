@@ -1,0 +1,17 @@
+package negocio.inscripcion;
+
+
+public class Condicional extends Inscripcion {
+	
+	private String condicion;
+	
+	public Condicional(String condicion) {
+		this.prioridad = 2;
+		this.condicion = condicion;
+	}
+
+	public String getCondicion() {
+		return condicion;
+	}
+
+}

@@ -1,63 +1,59 @@
 package negocio;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.LinkedList;
 
 import org.joda.time.*;
 
 public class Partido {
 	
-	public DateTime momento;
-	public LinkedListConTope<Jugador> inscriptosEstandar;
-	public LinkedList<Jugador> inscriptosSolidario;
-	public LinkedList<Jugador> inscriptosCondicional;
-	private boolean listo;
+	public DateTime fechaHora;
+	public LinkedList<Jugador> inscriptos;
+//	public LinkedListConTope<Jugador> inscriptosEstandar;
+//	public LinkedList<Jugador> inscriptosSolidario;
+//	public LinkedList<Jugador> inscriptosCondicional;
+	public boolean completo;
+	public ArrayList<Jugador> equipoA;
+	public ArrayList<Jugador> equipoB;
 
 
 	public Partido(int anio, int mes, int dia, int hora, int minutos){
 		
-		this.momento = new DateTime(anio, mes, dia, hora, minutos);
-		this.listo = false;
-		inscriptosEstandar    = new LinkedListConTope<Jugador>(10);
-		inscriptosSolidario   = new LinkedList<Jugador>();
-		inscriptosCondicional = new LinkedList<Jugador>();		
+		this.fechaHora = new DateTime(anio, mes, dia, hora, minutos);
+		this.completo = false;
+		inscriptos = new LinkedList<Jugador>();
+		
+		equipoA = new ArrayList<Jugador>(5);
+		equipoB = new ArrayList<Jugador>(5);
 	}
 	
 	
-	public boolean agregarJugador(Jugador jugador, int modo) throws Exception{
+	public void agregarJugador(Jugador jugador) throws Exception{
 		
-		if (modo<4 && modo>0)
-		{
-			switch(modo)
-			{
-				case 1: inscriptosEstandar.agregar(jugador); //si ya tiene 10 tira excepcion
-					if (inscriptosEstandar.size()==10)
-						listo = true;
-					return true;
-				case 2: return inscriptosSolidario.add(jugador);
-				case 3: return inscriptosCondicional.add(jugador);
-				default: return false;
-			}
-
-		}else throw new Exception("Modo (1,2,3) invalido");
+		this.inscriptos.addLast(jugador);
 					
 	}
-
-	public boolean listo() {
-		return this.listo;
+	
+	public boolean estaCompleto(){
+		
+		Iterator<Jugador> it = this.inscriptos.iterator();
+		int confirmadosEstandar = 0;
+		while(it.hasNext()){
+			
+			Jugador jug = it.next();
+			if(jug.getModoDeInscripcion().prioridad == 1){
+				confirmadosEstandar ++;
+			}
+		}
+		if (confirmadosEstandar == 10)
+			return true;
+		else return false;
 	}
 
 
-	public int cantInscriptosEstandar() {
-		return inscriptosEstandar.size();
+	public void borrar(Jugador jugador) {
+		this.inscriptos.remove(jugador);
 	}
-
-	public int cantInscriptosSolidario() {
-		return inscriptosSolidario.size();
-	}
-
-	public int cantInscriptosCondicional() {
-		return inscriptosCondicional.size();
-	}
-
 
 }

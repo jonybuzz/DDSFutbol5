@@ -1,34 +1,38 @@
 package negocio;
 
+import negocio.inscripcion.*;
+
 import org.joda.time.*;
 
 public class Jugador {
 	
 	public DateTime nacimiento;
-	private Period edad;
-	private String comentarioActual;
+	private String condicion;
+	private Inscripcion modo;
 
 	public Jugador(String nombre, int anio, int mes, int dia){
 		this.nacimiento = new DateTime(anio, mes, dia, 0, 0);
-		this.edad = new Interval(nacimiento, DateTime.now()).toPeriod();  //con meses, dias, seg etc		
+		this.modo = new Estandar();
 	}
 	
-	public int edad(){                                                                                                                                                                         
-
-		return this.edad.toPeriod().getYears();
-	}
-
-	public void inscribirme(Partido partido, int modo, String comentario) throws Exception{
-		partido.agregarJugador(this, modo);
-		this.comentarioActual = comentario;
+	public int edad(){
+		return new Interval(nacimiento, DateTime.now()).toPeriod().getYears();
 	}
 	
-	public void inscribirme(Partido partido, int modo) throws Exception{
-		partido.agregarJugador(this, modo);
+	public Inscripcion getModoDeInscripcion() {
+		return modo;
 	}
 
-	public String getComentarioActual() {
-		return comentarioActual;
+	public void modoDeInscrpcion(Inscripcion modo) {
+		this.modo = modo;
+	}
+
+	public void inscribirme(Partido partido) throws Exception{		
+		this.modo.inscribir(this, partido);
+	}
+
+	public String getCondicion() {
+		return condicion;
 	}
 
 

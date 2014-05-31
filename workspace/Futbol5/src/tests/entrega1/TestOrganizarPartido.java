@@ -9,6 +9,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import negocio.*;
+import negocio.inscripcion.*;
 
 /**
  *
@@ -27,7 +28,7 @@ public class TestOrganizarPartido {
 	static Jugador ana;
 	static Jugador pepe;
 	static Jugador lionel;
-
+	static Jugador leo;
 
 	public TestOrganizarPartido() {
 	}
@@ -50,6 +51,7 @@ public class TestOrganizarPartido {
 		ana = new Jugador("Ana", 1989, 5, 20);
 		pepe = new Jugador("Pepe", 1994, 1, 10);
 		lionel = new Jugador("Lionel", 1999, 5, 20);
+		leo = new Jugador("Leo", 1996, 5, 20);
 
 	}
 
@@ -73,7 +75,7 @@ public class TestOrganizarPartido {
 	@After
 	public void tearDown() throws Exception {
 	}
-
+/*
 	@Test
 	public void crearPartido() throws Exception {
 		
@@ -95,31 +97,37 @@ public class TestOrganizarPartido {
 		assertTrue(partidoPrueba.listo());
 
 	}
-
+*/
+	
 	@Test
 	public void inscripcion() throws Exception {
 		
 		Partido partidoPrueba = new Partido(2014, 6, 18, 15, 30);
 		
-		mario.inscribirme(partidoPrueba, 1);   //1:estandar, 2:solidadrio, 3:condicional
-		jose.inscribirme(partidoPrueba, 1);
-		lucas.inscribirme(partidoPrueba, 1);
-		luis.inscribirme(partidoPrueba, 3, "juego si esta nublado");
-		bender.inscribirme(partidoPrueba, 1);
-		ale.inscribirme(partidoPrueba, 1);
-		juan.inscribirme(partidoPrueba, 1, "juego si hace frio");
-		esteban.inscribirme(partidoPrueba, 1);
-		diego.inscribirme(partidoPrueba, 1);
-		ana.inscribirme(partidoPrueba, 1);
+		mario.inscribirme(partidoPrueba);
+		jose.inscribirme(partidoPrueba);
+		lucas.inscribirme(partidoPrueba);
+		luis.modoDeInscrpcion(new Condicional("juego si esta nublado"));
+		luis.inscribirme(partidoPrueba);
+		bender.inscribirme(partidoPrueba);
+		ale.inscribirme(partidoPrueba);
+		juan.modoDeInscrpcion(new Condicional("juego si hace frio"));
+		assertTrue(juan.getModoDeInscripcion().prioridad==2);
+		juan.inscribirme(partidoPrueba);
+		esteban.inscribirme(partidoPrueba);
+		diego.inscribirme(partidoPrueba);
+		ana.inscribirme(partidoPrueba);
 		
-		assertFalse(partidoPrueba.listo());
+		assertFalse(partidoPrueba.estaCompleto());
 
-		pepe.inscribirme(partidoPrueba, 3, "juego si hay alguno de mi edad");
+		pepe.modoDeInscrpcion(new Condicional("juego si hay alguno de mi edad"));
+		pepe.inscribirme(partidoPrueba);
 		assertTrue(pepe.edad() == lucas.edad());
 
-		lionel.inscribirme(partidoPrueba, 1);
+		lionel.inscribirme(partidoPrueba);
+		lionel.inscribirme(partidoPrueba);
 
-		assertTrue(partidoPrueba.listo());
+		assertTrue(partidoPrueba.estaCompleto());
 
 	}
 
