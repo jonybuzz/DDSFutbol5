@@ -7,11 +7,14 @@ import org.joda.time.*;
 public class Jugador {
 	
 	public DateTime nacimiento;
-	private String condicion;
 	private Inscripcion modo;
 
-	public Jugador(String nombre, int anio, int mes, int dia){
-		this.nacimiento = new DateTime(anio, mes, dia, 0, 0);
+	public Jugador(String nombre, int anio, int mes, int dia) throws Exception{
+		DateTime nac = new DateTime(anio, mes, dia, 0, 0);
+		if (nac.isAfterNow())
+			throw new Exception("Nacimiento Invalido!");
+		else
+			this.nacimiento = nac;
 		this.modo = new Estandar();
 	}
 	
@@ -30,10 +33,5 @@ public class Jugador {
 	public void inscribirme(Partido partido) throws Exception{		
 		this.modo.inscribir(this, partido);
 	}
-
-	public String getCondicion() {
-		return condicion;
-	}
-
 
 }

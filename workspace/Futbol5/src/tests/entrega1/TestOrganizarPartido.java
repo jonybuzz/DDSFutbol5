@@ -1,131 +1,78 @@
 package tests.entrega1;
 
 import static org.junit.Assert.*;
-
+import org.junit.Test;
+/*
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
-import org.junit.Test;
-
+*/
 import negocio.*;
 import negocio.inscripcion.*;
+import fixture.BaseDatos;
 
 /**
  *
  */
 public class TestOrganizarPartido {
-	
-	static Jugador mario;
-	static Jugador jose;
-	static Jugador lucas;
-	static Jugador luis;
-	static Jugador bender;
-	static Jugador ale;
-	static Jugador juan;
-	static Jugador esteban;
-	static Jugador diego;
-	static Jugador ana;
-	static Jugador pepe;
-	static Jugador lionel;
-	static Jugador leo;
+
+	public static BaseDatos bd;
+	Partido partidoPrueba;
 
 	public TestOrganizarPartido() {
 	}
-
-	/**
-	 * @throws java.lang.Exception
-	 */
-	@BeforeClass
-	public static void inicializacionFixture() throws Exception {
-		
-		mario = new Jugador("Mario", 1985, 5, 20);
-		jose = new Jugador("Jose", 1989, 6, 20);
-		lucas = new Jugador("Lucas", 1994, 5, 20);
-		luis = new Jugador("Luis", 1900, 5, 20);
-		bender = new Jugador("Bender", 2010, 5, 20);
-		ale = new Jugador("Ale", 1995, 5, 20);
-		juan = new Jugador("Juan", 1987, 5, 20);
-		esteban = new Jugador("Esteban", 1985, 5, 20);
-		diego = new Jugador("Diego", 1980, 5, 20);
-		ana = new Jugador("Ana", 1989, 5, 20);
-		pepe = new Jugador("Pepe", 1994, 1, 10);
-		lionel = new Jugador("Lionel", 1999, 5, 20);
-		leo = new Jugador("Leo", 1996, 5, 20);
-
-	}
-
-	/**
-	 * @throws java.lang.Exception
-	 */
-	@AfterClass
-	public static void tearDownAfterClass() throws Exception {
-	}
-
-	/**
-	 * @throws java.lang.Exception
-	 */
-	@Before
-	public void setUp() throws Exception {
-	}
-
-	/**
-	 * @throws java.lang.Exception
-	 */
-	@After
-	public void tearDown() throws Exception {
-	}
-/*
-	@Test
-	public void crearPartido() throws Exception {
-		
-		//fail("Not yet implemented");
-		Partido partidoPrueba = new Partido(2014, 6, 18, 15, 30);
-		assertFalse(partidoPrueba.listo());
-		
-		partidoPrueba.agregarJugador(mario, 1);
-		partidoPrueba.agregarJugador(jose, 1);
-		partidoPrueba.agregarJugador(lucas, 1);
-		partidoPrueba.agregarJugador(luis, 1);
-		partidoPrueba.agregarJugador(bender, 1);
-		partidoPrueba.agregarJugador(ale, 1);
-		partidoPrueba.agregarJugador(juan, 1);
-		partidoPrueba.agregarJugador(esteban, 1);
-		partidoPrueba.agregarJugador(diego, 1);
-		partidoPrueba.agregarJugador(ana, 1);
-		
-		assertTrue(partidoPrueba.listo());
-
-	}
-*/
 	
+	
+	@Test(expected = Exception.class)
+	public void partidoPasado() throws Exception {
+		bd = new BaseDatos();
+
+		@SuppressWarnings("unused")
+		Partido partidoMalo = ((Administrador) bd.mario).organizarNuevoPartido(2004, 6, 18, 15, 30);
+	}
+	
+	@Test(expected = Exception.class)
+	public void nacimientoFuturo() throws Exception {
+		
+		@SuppressWarnings("unused")
+		Jugador jugadorMalo = new Jugador("Terminator", 2100, 5, 1);
+	}
+
+
 	@Test
 	public void inscripcion() throws Exception {
+
+		bd = new BaseDatos();
+
+		partidoPrueba = ((Administrador) bd.mario).organizarNuevoPartido(2014, 6, 18, 15, 30);
 		
-		Partido partidoPrueba = new Partido(2014, 6, 18, 15, 30);
+		bd.mario.inscribirme(partidoPrueba);
+		bd.jose.inscribirme(partidoPrueba);
+		bd.lucas.inscribirme(partidoPrueba);
+		bd.luis.modoDeInscrpcion(new Condicional("juego si esta nublado"));
+		bd.luis.inscribirme(partidoPrueba);
+		bd.bender.inscribirme(partidoPrueba);
+		bd.ale.inscribirme(partidoPrueba);
 		
-		mario.inscribirme(partidoPrueba);
-		jose.inscribirme(partidoPrueba);
-		lucas.inscribirme(partidoPrueba);
-		luis.modoDeInscrpcion(new Condicional("juego si esta nublado"));
-		luis.inscribirme(partidoPrueba);
-		bender.inscribirme(partidoPrueba);
-		ale.inscribirme(partidoPrueba);
-		juan.modoDeInscrpcion(new Condicional("juego si hace frio"));
-		assertTrue(juan.getModoDeInscripcion().prioridad==2);
-		juan.inscribirme(partidoPrueba);
-		esteban.inscribirme(partidoPrueba);
-		diego.inscribirme(partidoPrueba);
-		ana.inscribirme(partidoPrueba);
+		bd.juan.modoDeInscrpcion(new Condicional("juego si hace frio"));
+		assertTrue(bd.juan.getModoDeInscripcion().prioridad==2);
+		
+		assertFalse(partidoPrueba.estaCompleto());
+		
+		bd.juan.inscribirme(partidoPrueba);
+		bd.esteban.inscribirme(partidoPrueba);
+		bd.diego.inscribirme(partidoPrueba);
+		bd.ana.inscribirme(partidoPrueba);
 		
 		assertFalse(partidoPrueba.estaCompleto());
 
-		pepe.modoDeInscrpcion(new Condicional("juego si hay alguno de mi edad"));
-		pepe.inscribirme(partidoPrueba);
-		assertTrue(pepe.edad() == lucas.edad());
+		bd.pepe.modoDeInscrpcion(new Condicional("juego si hay alguno de mi edad"));
+		bd.pepe.inscribirme(partidoPrueba);
+		assertTrue(bd.pepe.edad() == bd.lucas.edad());
 
-		lionel.inscribirme(partidoPrueba);
-		lionel.inscribirme(partidoPrueba);
+		bd.lionel.inscribirme(partidoPrueba);
+		bd.leo.inscribirme(partidoPrueba);
 
 		assertTrue(partidoPrueba.estaCompleto());
 
