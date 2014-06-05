@@ -1,4 +1,6 @@
 /bin
 
-/joda-time-2.3-dist
 .metadata
+.metadata/
+/.euml2
+/.umlproject
