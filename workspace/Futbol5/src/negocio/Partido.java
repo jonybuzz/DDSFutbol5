@@ -14,30 +14,34 @@ public class Partido extends Observable{
 	public LinkedList<Jugador> inscriptos;
 	public ArrayList<Jugador> equipoA;
 	public ArrayList<Jugador> equipoB;
+	private Administrador administrador;
 	
 
-	public Partido(int anio, int mes, int dia, int hora, int minutos) throws Exception{
+	public Partido(Administrador administrador, int anio, int mes, int dia, int hora, int minutos) throws Exception{
 		DateTime nuevaFechaHora = new DateTime(anio, mes, dia, hora, minutos);
 		if (nuevaFechaHora.isBeforeNow())
 			throw new Exception("Partido futuro!");
 		
 		fechaHora = nuevaFechaHora;
 		inscriptos = new LinkedList<Jugador>();
+		this.administrador = administrador;
 
 		equipoA = new ArrayList<Jugador>(5);
 		equipoB = new ArrayList<Jugador>(5);
 	}
 	
 	public void agregarJugador(Jugador jugador, int pos) throws Exception {		
-
 		if(!this.confirmado() && !this.estaInscripto(jugador)) {
 			this.inscriptos.add(pos, jugador);
-			if(this.confirmado()) this.setChanged();
-			if(this.countObservers()>0) this.notifyObservers();
+			if(this.confirmado()) this.notificarAdministrador();
 		}
 		else throw new Exception("No se pudo inscribir a " + jugador);
 	}
 	
+	private void notificarAdministrador() {
+		this.administrador.updatePartido(this);
+	}
+
 	public boolean confirmado(){
 		Iterator<Jugador> it = this.inscriptos.iterator();
 		int confirmadosEstandar = 0;
@@ -54,8 +58,7 @@ public class Partido extends Observable{
 
 	public void darDeBaja(Jugador jugador) {
 		this.inscriptos.remove(jugador);
-		if(!this.confirmado()) this.setChanged();
-		if(this.countObservers()>0) this.notifyObservers();
+		if(!this.confirmado()) this.notificarAdministrador();
 	}
 
 	public boolean estaInscripto(Jugador jugador) {
@@ -63,6 +66,7 @@ public class Partido extends Observable{
 	}
 	
 	public String toString() {
-		return this.fechaHora + "(" + this.confirmado() + ")";
+		return "Partido del "+ this.fechaHora + "(" + this.confirmado() + ")";
 	}
+
 }

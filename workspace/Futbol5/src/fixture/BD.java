@@ -1,14 +1,10 @@
 package fixture;
 
-import java.util.ArrayList;
-
-import negocio.Administrador;
-import negocio.Jugador;
-//import negocio.Partido;
+import negocio.*;
 
 public class BD {
 	
-	public static Jugador mario;
+	public static Administrador mario;
 	public static Jugador jose;
 	public static Jugador lucas;
 	public static Jugador luis;
@@ -22,7 +18,7 @@ public class BD {
 	public static Jugador lionel;
 	public static Jugador leo;
 	public static Jugador beto;
-	public static ArrayList<Administrador> admins;
+	public static Jugador gero;
 	
 	public static void init() throws Exception{
 				
@@ -40,11 +36,8 @@ public class BD {
 		lionel = new Jugador("Lionel", 1999, 5, 20);
 		leo = new Jugador("Leo", 1996, 5, 20);
 		beto = new Jugador("Beto", 1976, 8, 12);
-
+		gero = new Jugador("Gero", 1960, 12, 31);
 
 	}
 
-	public static void addAdmin (Jugador jugador) {
-		admins.add((Administrador)jugador);
-	}
 }

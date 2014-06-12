@@ -1,10 +1,12 @@
 package utils;
 
+import negocio.Jugador;
+
 public class MailSender {
 	
-	protected class Mail{
-		private String subject;
-		private String message;
+	public class Mail{
+		public String subject;
+		public String message;
 		protected Mail(String sub, String msg){
 			subject = sub;
 			message = msg;
@@ -24,7 +26,8 @@ public class MailSender {
 		this.to = to;
 		}
 
-	public void send(){
-		//TODO
+	public void send(Jugador receptor){
+		receptor.recibirMail(this.mail);
+		receptor.recibiMail = true;
 	}
 }
