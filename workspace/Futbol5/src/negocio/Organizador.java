@@ -2,12 +2,9 @@ package negocio;
 
 import java.util.SortedSet;
 
-public class Organizador {
+public class Organizador {  // SINGLETON
     private static Organizador INSTANCE = new Organizador();
     
-    /**
-	 * @uml.property  name="partidos"
-	 */
     public SortedSet<Partido> partidos;
  
     // El constructor privado no permite que se genere un constructor por defecto.
