@@ -105,5 +105,21 @@ public class TestEntrega2 {
 
 	}
 	
+	@Test
+	public void testNotificarAmigos() throws Exception {
+		BD.init();
+		partidoPrueba = BD.mario.organizarNuevoPartido(2014, 6, 27, 17, 0);
+		
+		BD.mario.agregarAmigos(BD.ale, BD.ana,BD.bender);
+		assertTrue(BD.mario.amigos.size() == 3);
+		assertTrue(BD.ana.amigos.size() == 1);
+		
+		BD.mario.inscribirme(partidoPrueba);
+		
+		System.out.print(BD.ana.casilla.subject);
+		assertTrue(BD.ana.casilla.subject == "[Futbol5] Amigo Inscripto");
+		assertTrue(BD.ale.casilla.subject == "[Futbol5] Amigo Inscripto");
+		assertFalse(BD.ale.recibiMail);
+	}
 	
 }

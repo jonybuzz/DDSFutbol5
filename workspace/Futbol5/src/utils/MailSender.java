@@ -1,7 +1,9 @@
 package utils;
 
 import negocio.Jugador;
-
+/*
+ * Clase que simula el envio de mails. Para testear, cada jugador tiene una "casilla"
+ */
 public class MailSender {
 	
 	public class Mail{

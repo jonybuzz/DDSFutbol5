@@ -1,8 +1,9 @@
 package negocio;
 
 import java.util.ArrayList;
-import java.util.Observable;
-import java.util.Observer;
+//import java.util.Observable;
+//import java.util.Observer;
+//import java.util.TreeSet;
 
 import negocio.inscripcion.*;
 
@@ -22,7 +23,7 @@ public class Jugador /*extends Observable implements Observer*/ {
 	public ArrayList<Infraccion> infracciones;
 	public boolean recibiMail = false;
 	public Mail casilla;
-	private ArrayList<Jugador> amigos;
+	public ArrayList<Jugador> amigos;
 
 	public Jugador(String nombre, int anio, int mes, int dia) throws Exception{
 		this.nombre = nombre;
@@ -82,12 +83,19 @@ public class Jugador /*extends Observable implements Observer*/ {
 		reemplazo.inscribirme(partidoActual);
 	}
 		
-	public void agregarAmigo(Jugador amigo) {
-		this.amigos.add(amigo);
+	public void agregarAmigos(Jugador... amigos) {
+		for(Jugador amigo : amigos){
+			if(!this.amigos.contains(amigo)){
+				this.amigos.add(amigo);
+				amigo.agregarAmigos(this);  //doble enlace
+			}
+		}
+			
 	}
 
 	public void update(Jugador jugador, Partido partido) {
-		mailsender.compose("System.Mail", this.mail, "[Futbol5] Amigo Inscripto", jugador.toString() + " se inscribio al partido "+ partido);
+		mailsender.compose("System.Mail", this.mail, "[Futbol5] Amigo Inscripto",
+				jugador.toString() + " se inscribio al partido "+ partido);
 		mailsender.send(this);
 	}	
 
@@ -102,4 +110,5 @@ public class Jugador /*extends Observable implements Observer*/ {
 		this.recibiMail = false;
 		return aux;
 	}
+
 }
