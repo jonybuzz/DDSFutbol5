@@ -26,7 +26,7 @@ public class Completo implements EstadoPartido {
 	
 	public Mail mailDeNotificacion(){		
 		Mail mail = new Mail("[Futbol5] Partido Completo",
-				"El "+ partido +" ya tiene 10 jug confirmados");
+				"El "+ partido +" ya tiene 10 jugadores confirmados");
 		return mail;
 	}
 

@@ -17,13 +17,11 @@ public class Confirmado implements EstadoPartido {
 	}
 
 	public void darDeBaja(Jugador jugador) throws Exception {
-		throw new Exception("No se pudo inscribir a " + jugador + ". El partido ya esta confirmado");
+		throw new Exception("No se pudo dar de baja a " + jugador + ". El partido ya esta confirmado");
 	}
 	
-	public Mail mailDeNotificacion(){		
-		Mail mail = new Mail("[Futbol5] Partido Completo",
-				"El "+ partido +" ya tiene 10 jug confirmados");
-		return mail;
+	public Mail mailDeNotificacion(){
+		return null;		
 	}
 	
 	public void EquipoConfirmadoA(Jugador... jugadores){
