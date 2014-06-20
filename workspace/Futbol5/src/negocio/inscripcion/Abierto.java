@@ -15,8 +15,8 @@ public class Abierto implements EstadoPartido {
 	public void agregarJugador(Jugador jugador, int pos) throws Exception {
 		if(!partido.estaInscripto(jugador)) {
 			partido.inscriptos.add(pos, jugador);
-			if(partido.confirmado()){
-				partido.setEstado(new Confirmado(partido));  //pasar estado a confirmado
+			if(partido.completo()){
+				partido.setEstado(new Completo(partido));  //pasar estado a confirmado
 				partido.notificarAdministrador();
 			}
 		}
@@ -29,7 +29,7 @@ public class Abierto implements EstadoPartido {
 
 	public Mail mailDeNotificacion() {
 		Mail mail = new Mail("[Futbol5] Partido Incompleto",
-				"El "+ partido +" volvio a estar sin 10 jugadores confirmados");
+				"El "+ partido +" volvio a estar sin 10 jug confirmados");
 		return mail;
 	}
 

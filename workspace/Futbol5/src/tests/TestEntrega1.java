@@ -62,13 +62,13 @@ public class TestEntrega1 {
 		assertTrue(BD.juan.getModoDeInscripcion().prioridad==3);
 		BD.juan.inscribirme(partidoPrueba);
 
-		assertFalse(partidoPrueba.confirmado());
+		assertFalse(partidoPrueba.completo());
 		
 		BD.esteban.inscribirme(partidoPrueba);					//6
 		BD.diego.inscribirme(partidoPrueba);					//7
 		BD.ana.inscribirme(partidoPrueba);						//8
 		
-		assertFalse(partidoPrueba.confirmado());
+		assertFalse(partidoPrueba.completo());
 
 		BD.pepe.modoDeInscrpcion(new Condicional("juego si hay alguno de mi edad"));
 		BD.pepe.inscribirme(partidoPrueba);
@@ -77,7 +77,7 @@ public class TestEntrega1 {
 		BD.lionel.inscribirme(partidoPrueba);					//9
 		BD.leo.inscribirme(partidoPrueba);						//10
 
-		assertTrue(partidoPrueba.confirmado());
+		assertTrue(partidoPrueba.completo());
 
 	}
 	

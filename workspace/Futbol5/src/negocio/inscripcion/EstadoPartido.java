@@ -7,7 +7,7 @@ public interface EstadoPartido {
 	
 	public void agregarJugador(Jugador jugador, int pos) throws Exception;
 	
-	public void darDeBaja(Jugador jugador);
+	public void darDeBaja(Jugador jugador) throws Exception;
 	
 	public Mail mailDeNotificacion();
 }

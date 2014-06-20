@@ -6,6 +6,7 @@ import java.util.LinkedList;
 import java.util.Observable;
 
 import negocio.inscripcion.*;
+
 import org.joda.time.*;
 import org.joda.time.format.*;
 
@@ -35,7 +36,7 @@ public class Partido extends Observable implements Comparable<Partido>{
 	public EstadoPartido getEstado() {return estado;}
 	public void setEstado(EstadoPartido estado) {this.estado = estado;}
 
-	public boolean confirmado(){
+	public boolean completo(){
 		Iterator<Jugador> it = this.inscriptos.iterator();
 		int confirmadosEstandar = 0;
 		while(it.hasNext()){
@@ -57,19 +58,19 @@ public class Partido extends Observable implements Comparable<Partido>{
 		this.administrador.updateFromPartido(this.estado.mailDeNotificacion());
 	}
 
-	public void darDeBaja(Jugador jugador) {
+	public void darDeBaja(Jugador jugador) throws Exception {
 		estado.darDeBaja(jugador);
 	}
 
 	public boolean estaInscripto(Jugador jugador) {
 		return this.inscriptos.contains(jugador);
 	}
-	
+		
 	public String toString() {
 		DateTimeFormatter fmt = DateTimeFormat.forPattern("dd 'de' MMMM, yyyy 'a las' kk:mm");
 		String fechaFormateada = fmt.print(this.fechaHora);
 
-		return "Partido del "+ fechaFormateada + "(" + this.confirmado() + ")";
+		return "Partido del "+ fechaFormateada + "(" + this.completo() + ")";
 	}
 
 	public int compareTo(Partido otro){

@@ -55,22 +55,22 @@ public class TestEntrega2 {
 		assertTrue(BD.mario.recibiMail);
 		System.out.print("====MAIL DE CONFIRMACION====\n");
 		System.out.print(BD.mario.casilla.message+"\n");
-		assertTrue(BD.mario.casilla.subject == "[Futbol5] Partido Confirmado");
+		assertTrue(BD.mario.casilla.subject == "[Futbol5] Partido Completo");
 		
 		BD.esteban.darmeDeBaja(partidoPrueba, "estoy enfermo");				//9 otra vez
 		
-		assertFalse(partidoPrueba.confirmado());
+		assertFalse(partidoPrueba.completo());
 		System.out.print("====MAIL DE BAJA====\n");
 		System.out.print(BD.mario.casilla.message+"\n");
 		assertTrue(BD.mario.casilla.subject == "[Futbol5] Partido Incompleto");
 		
 		BD.gero.inscribirme(partidoPrueba);						//10
-		assertTrue(partidoPrueba.confirmado());
+		assertTrue(partidoPrueba.completo());
 		
 		BD.jose.darmeDeBaja(partidoPrueba, "");								//9
-		assertFalse(partidoPrueba.confirmado());
+		assertFalse(partidoPrueba.completo());
 		BD.diego.darmeDeBaja(partidoPrueba, BD.esteban);						//todavia 9
-		assertFalse(partidoPrueba.confirmado());
+		assertFalse(partidoPrueba.completo());
 
 	}
 	

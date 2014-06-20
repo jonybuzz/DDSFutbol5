@@ -13,21 +13,32 @@ public class Confirmado implements EstadoPartido {
 	}
 
 	public void agregarJugador(Jugador jugador, int pos) throws Exception {
-		throw new Exception("No se pudo inscribir a " + jugador + ". No hay cupos");
+		throw new Exception("No se pudo inscribir a " + jugador + ". El partido ya esta confirmado");
 	}
 
-	public void darDeBaja(Jugador jugador) {
-		partido.inscriptos.remove(jugador);
-		if(!partido.confirmado()){
-			partido.setEstado(new Abierto(partido));
-			partido.notificarAdministrador();
-		}
+	public void darDeBaja(Jugador jugador) throws Exception {
+		throw new Exception("No se pudo inscribir a " + jugador + ". El partido ya esta confirmado");
 	}
 	
 	public Mail mailDeNotificacion(){		
-		Mail mail = new Mail("[Futbol5] Partido Confirmado",
-				"El "+ partido +" ya tiene 10 jugadores confirmados");
+		Mail mail = new Mail("[Futbol5] Partido Completo",
+				"El "+ partido +" ya tiene 10 jug confirmados");
 		return mail;
 	}
+	
+	public void EquipoConfirmadoA(Jugador... jugadores){
+		if (this.partido.equipoA.size() < 5)
+			for(Jugador jug : jugadores){
+				this.partido.equipoA.add(jug);
+			}
+	}
+
+	public void EquipoConfirmadoB(Jugador... jugadores){
+		if (this.partido.equipoB.size() < 5)
+			for(Jugador jug : jugadores){
+				this.partido.equipoB.add(jug);
+			}
+	}
+
 
 }

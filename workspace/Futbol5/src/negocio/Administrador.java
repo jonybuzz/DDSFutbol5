@@ -1,5 +1,6 @@
 package negocio;
 
+import negocio.inscripcion.Confirmado;
 import utils.Mail;
 import utils.MailSender;
 //import utils.Observer;
@@ -22,6 +23,10 @@ public class Administrador extends Jugador {
 
 	public void updateFromPartido(Mail mail) {
 		mailsender.send(this, mail);
+	}
+
+	public void confirmarPartido(Partido partido) {
+		partido.setEstado(new Confirmado(partido));
 	}
 
 }

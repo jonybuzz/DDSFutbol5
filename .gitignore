@@ -1,0 +1,10 @@
+﻿SCRUM/*.sprz
+workspace/.metadata
+workspace/.metadata/*
+workspace/.metadata/*/*
+workspace/Futbol5/.settings
+workspace/Futbol5/.externalToolBuilders
+workspace/Futbol5/.umlproyect
+workspace/Futbol5/.euml2
+workspace/Futbol5/joda-time-2.3-dist/joda-time-2.3/src/test
+workspace/Futbol5/joda-time-2.3-dist/joda-time-2.3/src/example
