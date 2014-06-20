@@ -30,7 +30,7 @@ public class TestEntrega2 {
 
 		BD.init();
 
-		partidoPrueba = BD.mario.organizarNuevoPartido(2014, 6, 18, 15, 30);
+		partidoPrueba = BD.mario.organizarNuevoPartido(2015, 1, 21, 15, 30);
 		
 		BD.mario.inscribirme(partidoPrueba);					//1
 		BD.jose.inscribirme(partidoPrueba);						//2
@@ -57,7 +57,7 @@ public class TestEntrega2 {
 		System.out.print(BD.mario.casilla.message+"\n");
 		assertTrue(BD.mario.casilla.subject == "[Futbol5] Partido Confirmado");
 		
-		BD.esteban.darmeDeBaja("estoy enfermo");				//9 otra vez
+		BD.esteban.darmeDeBaja(partidoPrueba, "estoy enfermo");				//9 otra vez
 		
 		assertFalse(partidoPrueba.confirmado());
 		System.out.print("====MAIL DE BAJA====\n");
@@ -67,9 +67,9 @@ public class TestEntrega2 {
 		BD.gero.inscribirme(partidoPrueba);						//10
 		assertTrue(partidoPrueba.confirmado());
 		
-		BD.jose.darmeDeBaja("");								//9
+		BD.jose.darmeDeBaja(partidoPrueba, "");								//9
 		assertFalse(partidoPrueba.confirmado());
-		BD.diego.darmeDeBaja(BD.esteban);						//todavia 9
+		BD.diego.darmeDeBaja(partidoPrueba, BD.esteban);						//todavia 9
 		assertFalse(partidoPrueba.confirmado());
 
 	}
@@ -78,7 +78,7 @@ public class TestEntrega2 {
 	public void testInfraccion() throws Exception {
 		BD.init();
 
-		partidoPrueba = BD.mario.organizarNuevoPartido(2014, 6, 25, 17, 0);
+		partidoPrueba = BD.mario.organizarNuevoPartido(2014, 12, 25, 17, 0);
 		
 		BD.mario.inscribirme(partidoPrueba);					//1
 		BD.jose.inscribirme(partidoPrueba);						//2
@@ -94,13 +94,13 @@ public class TestEntrega2 {
 		BD.ana.inscribirme(partidoPrueba);						//8
 		BD.pepe.inscribirme(partidoPrueba);						//9
 		
-		BD.esteban.darmeDeBaja("estoy enfermo");				//8
+		BD.esteban.darmeDeBaja(partidoPrueba, "estoy enfermo");				//8
 		assertTrue(BD.esteban.infracciones.size() == 1);
 						
-		BD.jose.darmeDeBaja(BD.gero);							//8
+		BD.jose.darmeDeBaja(partidoPrueba, BD.gero);							//8
 		assertTrue(BD.jose.infracciones.isEmpty());
 
-		BD.diego.darmeDeBaja(BD.esteban);						//8
+		BD.diego.darmeDeBaja(partidoPrueba, BD.esteban);						//8
 		assertTrue(BD.diego.infracciones.isEmpty());
 
 	}
@@ -119,7 +119,6 @@ public class TestEntrega2 {
 		System.out.print(BD.ana.casilla.subject);
 		assertTrue(BD.ana.casilla.subject == "[Futbol5] Amigo Inscripto");
 		assertTrue(BD.ale.casilla.subject == "[Futbol5] Amigo Inscripto");
-		assertFalse(BD.ale.recibiMail);
 	}
 	
 }

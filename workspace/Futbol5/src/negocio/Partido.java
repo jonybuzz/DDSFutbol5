@@ -5,18 +5,19 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Observable;
 
+import negocio.inscripcion.*;
 import org.joda.time.*;
+import org.joda.time.format.*;
 
-
-public class Partido extends Observable{
+public class Partido extends Observable implements Comparable<Partido>{
 	
 	public DateTime fechaHora;
 	public LinkedList<Jugador> inscriptos;
 	public ArrayList<Jugador> equipoA;
 	public ArrayList<Jugador> equipoB;
 	private Administrador administrador;
+	private EstadoPartido estado;
 	
-
 	public Partido(Administrador administrador, int anio, int mes, int dia, int hora, int minutos) throws Exception{
 		DateTime nuevaFechaHora = new DateTime(anio, mes, dia, hora, minutos);
 		if (nuevaFechaHora.isBeforeNow())
@@ -25,22 +26,14 @@ public class Partido extends Observable{
 		fechaHora = nuevaFechaHora;
 		inscriptos = new LinkedList<Jugador>();
 		this.administrador = administrador;
-
+		this.estado = new Abierto(this);
+		
 		equipoA = new ArrayList<Jugador>(5);
 		equipoB = new ArrayList<Jugador>(5);
 	}
 	
-	public void agregarJugador(Jugador jugador, int pos) throws Exception {		
-		if(!this.confirmado() && !this.estaInscripto(jugador)) {
-			this.inscriptos.add(pos, jugador);
-			if(this.confirmado()) this.notificarAdministrador();
-		}
-		else throw new Exception("No se pudo inscribir a " + jugador);
-	}
-	
-	private void notificarAdministrador() {
-		this.administrador.updatePartido(this);
-	}
+	public EstadoPartido getEstado() {return estado;}
+	public void setEstado(EstadoPartido estado) {this.estado = estado;}
 
 	public boolean confirmado(){
 		Iterator<Jugador> it = this.inscriptos.iterator();
@@ -56,9 +49,16 @@ public class Partido extends Observable{
 		else return false;
 	}
 
+	public void agregarJugador(Jugador jugador, int pos) throws Exception {	
+		estado.agregarJugador(jugador, pos);
+	}
+	
+	public void notificarAdministrador() {
+		this.administrador.updateFromPartido(this.estado.mailDeNotificacion());
+	}
+
 	public void darDeBaja(Jugador jugador) {
-		this.inscriptos.remove(jugador);
-		if(!this.confirmado()) this.notificarAdministrador();
+		estado.darDeBaja(jugador);
 	}
 
 	public boolean estaInscripto(Jugador jugador) {
@@ -66,7 +66,19 @@ public class Partido extends Observable{
 	}
 	
 	public String toString() {
-		return "Partido del "+ this.fechaHora + "(" + this.confirmado() + ")";
+		DateTimeFormatter fmt = DateTimeFormat.forPattern("dd 'de' MMMM, yyyy 'a las' kk:mm");
+		String fechaFormateada = fmt.print(this.fechaHora);
+
+		return "Partido del "+ fechaFormateada + "(" + this.confirmado() + ")";
 	}
 
+	public int compareTo(Partido otro){
+		if (otro.fechaHora.isAfter(this.fechaHora)){
+			return -1;
+		}
+		if (otro.fechaHora.isBefore(this.fechaHora)){
+			return 1;
+		}
+		else return 0;
+	}
 }

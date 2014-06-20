@@ -5,17 +5,10 @@ import negocio.Jugador;
  * Clase que simula el envio de mails. Para testear, cada jugador tiene una "casilla"
  */
 public class MailSender {
-	
-	public class Mail{
-		public String subject;
-		public String message;
-		protected Mail(String sub, String msg){
-			subject = sub;
-			message = msg;
-		}
-	}
-	
+		
+	@SuppressWarnings("unused")
 	private String from;
+	@SuppressWarnings("unused")
 	private String to;
 	private Mail mail;
 	
@@ -32,4 +25,9 @@ public class MailSender {
 		receptor.recibirMail(this.mail);
 		receptor.recibiMail = true;
 	}
+	public void send(Jugador receptor, Mail mail){
+		receptor.recibirMail(mail);
+		receptor.recibiMail = true;
+	}
+
 }

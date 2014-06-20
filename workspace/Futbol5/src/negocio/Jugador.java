@@ -5,21 +5,20 @@ import java.util.ArrayList;
 //import java.util.Observer;
 //import java.util.TreeSet;
 
+
 import negocio.inscripcion.*;
 
 import org.joda.time.*;
-
 import utils.MailSender;
-import utils.MailSender.Mail;
+import utils.Mail;
 
 public class Jugador /*extends Observable implements Observer*/ {
 	
 	public DateTime nacimiento;
 	private Inscripcion modo;
 	private String nombre;
-	protected String mail;
+	public String mail;
 	protected MailSender mailsender;
-	private Partido partidoActual;
 	public ArrayList<Infraccion> infracciones;
 	public boolean recibiMail = false;
 	public Mail casilla;
@@ -38,8 +37,8 @@ public class Jugador /*extends Observable implements Observer*/ {
 		this.infracciones = new ArrayList<Infraccion>();
 	}
 	
-	public Jugador(String nombre, String mail, int anio, int mes, int dia) {
-		super();
+	public Jugador(String nombre, String mail, int anio, int mes, int dia) throws Exception {
+		this(nombre, anio, mes, dia);
 		this.mail = mail;
 	}
 
@@ -61,9 +60,7 @@ public class Jugador /*extends Observable implements Observer*/ {
 	
 	public void inscribirme(Partido partido) throws Exception{		
 		this.modo.inscribir(this, partido);
-		this.partidoActual = partido;
-
-		this.notificarAmigos(this.partidoActual);
+		this.notificarAmigos(partido);
 	}
 	
 	private void notificarAmigos(Partido partido) {
@@ -72,15 +69,15 @@ public class Jugador /*extends Observable implements Observer*/ {
 		}
 	}
 
-	public void darmeDeBaja(String motivo) {
-		partidoActual.darDeBaja(this);
+	public void darmeDeBaja(Partido partido, String motivo) {
+		partido.darDeBaja(this);
 		this.infracciones.add(new Infraccion(DateTime.now(), motivo));
 	}
 
-	public void darmeDeBaja(Jugador reemplazo) throws Exception {
-		partidoActual.darDeBaja(this);
+	public void darmeDeBaja(Partido partido, Jugador reemplazo) throws Exception {
+		partido.darDeBaja(this);
 		reemplazo.modoDeInscrpcion(this.getModoDeInscripcion());   //lo inscribe con el mismo modo
-		reemplazo.inscribirme(partidoActual);
+		reemplazo.inscribirme(partido);
 	}
 		
 	public void agregarAmigos(Jugador... amigos) {
@@ -95,20 +92,18 @@ public class Jugador /*extends Observable implements Observer*/ {
 
 	public void update(Jugador jugador, Partido partido) {
 		mailsender.compose("System.Mail", this.mail, "[Futbol5] Amigo Inscripto",
-				jugador.toString() + " se inscribio al partido "+ partido);
+				jugador.toString() + " se inscribio al "+ partido);
 		mailsender.send(this);
 	}	
 
 	public String toString() {
-		return "(" + this.modo.prioridad +")"+ this.nombre;
+		return "(" + this.modo +")"+ this.nombre;
 	}
 	
 	//Mock para tests
 	public boolean recibirMail(Mail mail) {
 		this.casilla = mail;
-		boolean aux = this.recibiMail;
-		this.recibiMail = false;
-		return aux;
+		return this.recibiMail;
 	}
 
 }

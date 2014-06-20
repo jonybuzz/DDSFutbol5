@@ -8,7 +8,23 @@ public class Infraccion {
 	private String motivo;
 
 	public Infraccion(DateTime fecha, String motivo) {
-		this.fecha = fecha;
+		this.setFecha(fecha);
+		this.setMotivo(motivo);
+	}
+
+	public String getMotivo() {
+		return motivo;
+	}
+
+	public void setMotivo(String motivo) {
 		this.motivo = motivo;
+	}
+
+	public DateTime getFecha() {
+		return fecha;
+	}
+
+	public void setFecha(DateTime fecha) {
+		this.fecha = fecha;
 	}
 }
