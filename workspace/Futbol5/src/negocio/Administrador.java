@@ -1,5 +1,6 @@
 package negocio;
 
+import fixture.BD;
 import negocio.inscripcion.Confirmado;
 import utils.Mail;
 import utils.MailSender;
@@ -27,6 +28,14 @@ public class Administrador extends Jugador {
 
 	public void confirmarPartido(Partido partido) {
 		partido.setEstado(new Confirmado(partido));
+	}
+
+	public void aceptar(Jugador jugador) {	
+		BD.agregarJugador(BD.pendientes.get(jugador.nombre));
+	}
+
+	public void rechazar(Jugador jugador, String string) {
+		BD.pendientes.remove(jugador.nombre);
 	}
 
 }

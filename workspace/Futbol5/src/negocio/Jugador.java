@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.TreeSet;
 
 import org.joda.time.*;
+
+import fixture.BD;
 import negocio.inscripcion.*;
 import utils.MailSender;
 import utils.Mail;
@@ -99,6 +101,10 @@ public class Jugador /*extends Observable implements Observer*/ {
 	public boolean recibirMail(Mail mail) {
 		this.casilla = mail;
 		return this.recibiMail;
+	}
+
+	public void proponerA(Jugador jugador) {
+		BD.agregarPendiente(jugador);
 	}
 
 }

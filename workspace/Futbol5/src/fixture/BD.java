@@ -8,12 +8,14 @@ public class BD {
 	private static Administrador mario;
 	public static HashMap<String, Jugador> jug;
 	public static HashMap<String, Jugador> pendientes;
+	public static HashMap<String, String> rechazos;
 	
 	@SuppressWarnings("unused")
 	public static void init() throws Exception{
 		
 		HashMap<String, Jugador> jugadores = new HashMap<String, Jugador>();
-		HashMap<String, Jugador> pendientes = new HashMap<String, Jugador>();
+		HashMap<String, Jugador> pendientes= new HashMap<String, Jugador>();
+		HashMap<String, String>  rechazos  = new HashMap<String, String>();
 		
 		mario = new Administrador("Mario", 1985, 5, 20);
 		agregarJugador((Jugador)mario);
@@ -35,9 +37,8 @@ public class BD {
 
 	}
 
-	private static void agregarJugador(Jugador jugador) {
+	public static void agregarJugador(Jugador jugador) {
 		jug.put(jugador.nombre, jugador);  //(clave,valor) para accederlos
-		
 	}
 
 	public static Administrador administrador() {
@@ -46,5 +47,9 @@ public class BD {
 
 	public static void agregarPendiente(Jugador jugador){
 		pendientes.put(jugador.nombre, jugador);
+	}
+	
+	public static void rechazarPendiente(String nombre, String motivo){
+		rechazos.put(nombre, motivo);
 	}
 }
