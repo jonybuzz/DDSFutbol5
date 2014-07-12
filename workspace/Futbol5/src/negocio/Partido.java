@@ -10,6 +10,8 @@ import negocio.inscripcion.*;
 import org.joda.time.*;
 import org.joda.time.format.*;
 
+import utils.FutbolException;
+
 public class Partido extends Observable implements Comparable<Partido>{
 	
 	public DateTime fechaHora;
@@ -19,10 +21,10 @@ public class Partido extends Observable implements Comparable<Partido>{
 	private Administrador administrador;
 	private EstadoPartido estado;
 	
-	public Partido(Administrador administrador, int anio, int mes, int dia, int hora, int minutos) throws Exception{
+	public Partido(Administrador administrador, int anio, int mes, int dia, int hora, int minutos) throws FutbolException{
 		DateTime nuevaFechaHora = new DateTime(anio, mes, dia, hora, minutos);
 		if (nuevaFechaHora.isBeforeNow())
-			throw new Exception("Partido futuro!");
+			throw new FutbolException("Partido futuro!");
 		
 		fechaHora = nuevaFechaHora;
 		inscriptos = new LinkedList<Jugador>();
@@ -50,7 +52,7 @@ public class Partido extends Observable implements Comparable<Partido>{
 		else return false;
 	}
 
-	public void agregarJugador(Jugador jugador, int pos) throws Exception {	
+	public void agregarJugador(Jugador jugador, int pos) throws FutbolException {	
 		estado.agregarJugador(jugador, pos);
 	}
 	
@@ -58,7 +60,7 @@ public class Partido extends Observable implements Comparable<Partido>{
 		this.administrador.updateFromPartido(this.estado.mailDeNotificacion());
 	}
 
-	public void darDeBaja(Jugador jugador) throws Exception {
+	public void darDeBaja(Jugador jugador) throws FutbolException {
 		estado.darDeBaja(jugador);
 	}
 
@@ -82,4 +84,9 @@ public class Partido extends Observable implements Comparable<Partido>{
 		}
 		else return 0;
 	}
+
+	public void calificar(Jugador jugador, Jugador calificado, int nota, String comentario) throws FutbolException {
+		estado.calificar(jugador, calificado, nota, comentario);
+	}
+
 }

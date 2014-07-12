@@ -1,6 +1,9 @@
 package fixture;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+
 import negocio.*;
 
 public class BD {
@@ -9,13 +12,14 @@ public class BD {
 	public static HashMap<String, Jugador> jug;
 	public static HashMap<String, Jugador> pendientes;
 	public static HashMap<String, String> rechazos;
+	public static ArrayList<Partido> partidos;
 	
-	@SuppressWarnings("unused")
 	public static void init() throws Exception{
 		
-		HashMap<String, Jugador> jugadores = new HashMap<String, Jugador>();
-		HashMap<String, Jugador> pendientes= new HashMap<String, Jugador>();
-		HashMap<String, String>  rechazos  = new HashMap<String, String>();
+		jug = new HashMap<String, Jugador>();
+		pendientes= new HashMap<String, Jugador>();
+		rechazos  = new HashMap<String, String>();
+		partidos = new ArrayList<Partido>();
 		
 		mario = new Administrador("Mario", 1985, 5, 20);
 		agregarJugador((Jugador)mario);
@@ -52,4 +56,13 @@ public class BD {
 	public static void rechazarPendiente(String nombre, String motivo){
 		rechazos.put(nombre, motivo);
 	}
+	
+	public static void agregarPartido(Partido partido){
+		partidos.add(partido);
+	}
+
+	public static Partido getPartido(Partido partido){
+		return (Partido) partidos.get(Collections.binarySearch(partidos, partido));
+	}
+
 }

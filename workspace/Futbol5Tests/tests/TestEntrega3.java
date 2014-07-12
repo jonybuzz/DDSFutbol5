@@ -3,8 +3,9 @@ package tests;
 import static org.junit.Assert.*;
 
 import org.junit.Test;
+
+import utils.FutbolException;
 import negocio.*;
-import negocio.inscripcion.*;
 import fixture.BD;
 
 
@@ -17,7 +18,7 @@ public class TestEntrega3 {
 
 		BD.init();
 		
-		BD.jug.get("Jose").proponerA(new Jugador("Felipe", 1980, 25, 5));
+		BD.jug.get("Jose").proponerA(new Jugador("Felipe", 1980, 5, 25));
 		BD.jug.get("Beto").proponerA(new Jugador("Fede", 1800, 4,4));
 
 		BD.administrador().aceptar(BD.pendientes.get("Felipe")); //lo busca en la BD y deberia ponerlo en "jug"
@@ -30,7 +31,6 @@ public class TestEntrega3 {
 	
 	@Test
 	public void calificarJugadores() throws Exception {
-
 		BD.init();
 		partidoPrueba = crearPartido();
 		assertTrue(partidoPrueba.completo());
@@ -51,7 +51,7 @@ public class TestEntrega3 {
 	}
 
 	
-	@Test (expected = Exception.class)
+	@Test (expected = FutbolException.class)
 	public void calificacionASiMismo() throws Exception {
 		BD.init();
 		partidoPrueba = crearPartido();
@@ -61,7 +61,7 @@ public class TestEntrega3 {
 	}
 
 	
-	@Test (expected = Exception.class)
+	@Test (expected = FutbolException.class)
 	public void calificacionDeAlguienQueNoJugo() throws Exception {
 		BD.init();
 		partidoPrueba = crearPartido();
@@ -72,7 +72,7 @@ public class TestEntrega3 {
 	}
 
 	
-	@Test (expected = Exception.class)
+	@Test (expected = FutbolException.class)
 	public void calificacionParaAlguienQueNoJugo() throws Exception {
 		BD.init();
 		partidoPrueba = crearPartido();

@@ -1,7 +1,7 @@
 package negocio.inscripcion;
 
 
-public class Estandar extends Inscripcion {
+public class Estandar extends TipoInscripcion {
 	
 	public Estandar() {
 		this.prioridad = 1;

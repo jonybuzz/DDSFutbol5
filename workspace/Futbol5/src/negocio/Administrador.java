@@ -19,7 +19,9 @@ public class Administrador extends Jugador {
 	}
 	
 	public Partido organizarNuevoPartido(int anio, int mes, int dia, int hora, int minutos) throws Exception{
-		return new Partido(this, anio, mes, dia, hora, minutos);
+		Partido p = new Partido(this, anio, mes, dia, hora, minutos);
+		BD.agregarPartido(p);
+		return p;
 	}
 
 	public void updateFromPartido(Mail mail) {

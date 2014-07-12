@@ -1,5 +1,6 @@
 package negocio.inscripcion;
 
+import utils.FutbolException;
 import utils.Mail;
 import negocio.Jugador;
 import negocio.Partido;
@@ -12,12 +13,12 @@ public class Confirmado implements EstadoPartido {
 		this.partido = partido;
 	}
 
-	public void agregarJugador(Jugador jugador, int pos) throws Exception {
-		throw new Exception("No se pudo inscribir a " + jugador + ". El partido ya esta confirmado");
+	public void agregarJugador(Jugador jugador, int pos) throws FutbolException {
+		throw new FutbolException("No se pudo inscribir a " + jugador + ". El partido ya esta confirmado");
 	}
 
-	public void darDeBaja(Jugador jugador) throws Exception {
-		throw new Exception("No se pudo dar de baja a " + jugador + ". El partido ya esta confirmado");
+	public void darDeBaja(Jugador jugador) throws FutbolException {
+		throw new FutbolException("No se pudo dar de baja a " + jugador + ". El partido ya esta confirmado");
 	}
 	
 	public Mail mailDeNotificacion(){
@@ -38,5 +39,8 @@ public class Confirmado implements EstadoPartido {
 			}
 	}
 
+	public void calificar(Jugador jugador, Jugador calificado, int nota, String comentario) throws FutbolException {
+		calificado.recibirNota(jugador, nota, comentario);
+	}
 
 }

@@ -1,5 +1,6 @@
 package negocio.inscripcion;
 
+import utils.FutbolException;
 import utils.Mail;
 import negocio.Jugador;
 import negocio.Partido;
@@ -12,7 +13,7 @@ public class Abierto implements EstadoPartido {
 		this.partido = partido;
 	}
 
-	public void agregarJugador(Jugador jugador, int pos) throws Exception {
+	public void agregarJugador(Jugador jugador, int pos) throws FutbolException {
 		if(!partido.estaInscripto(jugador)) {
 			partido.inscriptos.add(pos, jugador);
 			if(partido.completo()){
@@ -20,7 +21,7 @@ public class Abierto implements EstadoPartido {
 				partido.notificarAdministrador();
 			}
 		}
-		else throw new Exception(jugador + " ya esta inscripto.");
+		else throw new FutbolException(jugador + " ya esta inscripto.");
 	}
 
 	public void darDeBaja(Jugador jugador) {
@@ -31,6 +32,10 @@ public class Abierto implements EstadoPartido {
 		Mail mail = new Mail("[Futbol5] Partido Incompleto",
 				"El "+ partido +" volvio a estar sin 10 jug confirmados");
 		return mail;
+	}
+
+	public void calificar(Jugador jugador, Jugador calificado, int nota, String comentario) throws FutbolException {
+		throw new FutbolException("Todavia no se puede calificar.");
 	}
 
 }

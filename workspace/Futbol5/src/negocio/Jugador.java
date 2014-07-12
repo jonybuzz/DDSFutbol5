@@ -4,18 +4,15 @@ import java.util.ArrayList;
 //import java.util.Observable;
 //import java.util.Observer;
 import java.util.TreeSet;
-
 import org.joda.time.*;
-
 import fixture.BD;
 import negocio.inscripcion.*;
-import utils.MailSender;
-import utils.Mail;
+import utils.*;
 
 public class Jugador /*extends Observable implements Observer*/ {
 	
 	public DateTime nacimiento;
-	private Inscripcion modo;
+	private TipoInscripcion modo;
 	public String nombre;
 	public String mail;
 	protected MailSender mailsender;
@@ -23,21 +20,25 @@ public class Jugador /*extends Observable implements Observer*/ {
 	public boolean recibiMail = false;
 	public Mail casilla;
 	public TreeSet<Jugador> amigos;
+	public ArrayList<Integer> calificaciones;
+	public ArrayList<String> comentarios;
 
-	public Jugador(String nombre, int anio, int mes, int dia) throws Exception{
+	public Jugador(String nombre, int anio, int mes, int dia) throws FutbolException{
 		this.nombre = nombre;
 		DateTime nac = new DateTime(anio, mes, dia, 0, 0);
 		if (nac.isAfterNow())
-			throw new Exception("Nacimiento Invalido!");
+			throw new FutbolException("Nacimiento Invalido!");
 		else
 			this.nacimiento = nac;
 		this.modo = new Estandar();
 		this.amigos = new TreeSet<Jugador>();
 		this.mailsender = new MailSender();
 		this.infracciones = new ArrayList<Infraccion>();
+		this.calificaciones = new ArrayList<Integer>();
+		this.comentarios = new ArrayList<String>();
 	}
 	
-	public Jugador(String nombre, String mail, int anio, int mes, int dia) throws Exception {
+	public Jugador(String nombre, String mail, int anio, int mes, int dia) throws FutbolException {
 		this(nombre, anio, mes, dia);
 		this.mail = mail;
 	}
@@ -46,11 +47,11 @@ public class Jugador /*extends Observable implements Observer*/ {
 		return new Interval(nacimiento, DateTime.now()).toPeriod().getYears();
 	}
 	
-	public Inscripcion getModoDeInscripcion() {
+	public TipoInscripcion getModoDeInscripcion() {
 		return modo;
 	}
 
-	public void modoDeInscrpcion(Inscripcion modo) {
+	public void modoDeInscrpcion(TipoInscripcion modo) {
 		this.modo = modo;
 	}
 
@@ -58,7 +59,7 @@ public class Jugador /*extends Observable implements Observer*/ {
 		return getModoDeInscripcion().prioridad;
 	}
 	
-	public void inscribirme(Partido partido) throws Exception{		
+	public void inscribirme(Partido partido) throws FutbolException{		
 		this.modo.inscribir(this, partido);
 		this.notificarAmigos(partido);
 	}
@@ -69,12 +70,12 @@ public class Jugador /*extends Observable implements Observer*/ {
 		}
 	}
 
-	public void darmeDeBaja(Partido partido, String motivo) throws Exception {
+	public void darmeDeBaja(Partido partido, String motivo) throws FutbolException {
 		partido.darDeBaja(this);
 		this.infracciones.add(new Infraccion(DateTime.now(), motivo));
 	}
 
-	public void darmeDeBaja(Partido partido, Jugador reemplazo) throws Exception {
+	public void darmeDeBaja(Partido partido, Jugador reemplazo) throws FutbolException {
 		partido.darDeBaja(this);
 		reemplazo.modoDeInscrpcion(this.getModoDeInscripcion());   //lo inscribe con el mismo modo
 		reemplazo.inscribirme(partido);
@@ -105,6 +106,28 @@ public class Jugador /*extends Observable implements Observer*/ {
 
 	public void proponerA(Jugador jugador) {
 		BD.agregarPendiente(jugador);
+	}
+
+	public void calificar(Partido partido, Jugador jugador, int nota, String comentario) throws FutbolException {
+		BD.getPartido(partido).calificar(this, jugador, nota, comentario);
+	}
+	public void calificar(Partido partido, Jugador jugador, int nota) throws FutbolException {
+		BD.getPartido(partido).calificar(this, jugador, nota, "");		
+	}
+
+	public void recibirNota(Jugador jugador, int nota, String comentario) {
+		calificaciones.add(nota);
+		comentarios.add(jugador + ":" + comentario + " Calificacion: " + nota);		
+	}
+
+	public double calificacionesPromedio() {
+		double total = 0, cant = 0;
+		
+		for(int nota : this.calificaciones){
+			total += nota;
+			cant++;
+		}
+		return total/cant;
 	}
 
 }

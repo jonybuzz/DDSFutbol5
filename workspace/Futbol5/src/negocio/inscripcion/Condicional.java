@@ -1,7 +1,7 @@
 package negocio.inscripcion;
 
 
-public class Condicional extends Inscripcion {
+public class Condicional extends TipoInscripcion {
 	
 	private String condicion;
 	

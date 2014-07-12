@@ -1,5 +1,6 @@
 package negocio.inscripcion;
 
+import utils.FutbolException;
 import utils.Mail;
 import negocio.Jugador;
 import negocio.Partido;
@@ -12,8 +13,8 @@ public class Completo implements EstadoPartido {
 		this.partido = partido;
 	}
 
-	public void agregarJugador(Jugador jugador, int pos) throws Exception {
-		throw new Exception("No se pudo inscribir a " + jugador + ". No hay cupos");
+	public void agregarJugador(Jugador jugador, int pos) throws FutbolException {
+		throw new FutbolException("No se pudo inscribir a " + jugador + ". No hay cupos");
 	}
 
 	public void darDeBaja(Jugador jugador) {
@@ -28,6 +29,10 @@ public class Completo implements EstadoPartido {
 		Mail mail = new Mail("[Futbol5] Partido Completo",
 				"El "+ partido +" ya tiene 10 jugadores confirmados");
 		return mail;
+	}
+	
+	public void calificar(Jugador jugador, Jugador calificado, int nota, String comentario) throws FutbolException {
+		throw new FutbolException("Todavia no se puede calificar.");
 	}
 
 }
