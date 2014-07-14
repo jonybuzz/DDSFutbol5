@@ -40,6 +40,13 @@ public class Confirmado implements EstadoPartido {
 	}
 
 	public void calificar(Jugador jugador, Jugador calificado, int nota, String comentario) throws FutbolException {
+		if(!partido.inscriptos.contains(jugador))  //TODO deberia chequearse con los equipos ya confirmados
+			throw new FutbolException(jugador + " no jugo " + partido+".");
+		if(!partido.inscriptos.contains(calificado))  //TODO deberia chequearse con los equipos ya confirmados
+			throw new FutbolException(calificado + "no esta en inscripto.");
+		if(jugador.hashCode() == calificado.hashCode())
+			throw new FutbolException(calificado + ": no puede calificarse a si mismo.");
+
 		calificado.recibirNota(jugador, nota, comentario);
 	}
 
