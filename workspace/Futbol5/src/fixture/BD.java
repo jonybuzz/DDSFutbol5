@@ -1,10 +1,12 @@
 package fixture;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 
 import negocio.*;
+import negocio.inscripcion.Confirmado;
 
 public class BD {
 	
@@ -63,6 +65,16 @@ public class BD {
 
 	public static Partido getPartido(Partido partido){
 		return (Partido) partidos.get(Collections.binarySearch(partidos, partido));
+	}
+
+	public static ArrayList<Partido> partidosConEstado(Class clase) {
+		ArrayList<Partido> partidosEstado = new ArrayList<Partido>();
+		for(Partido p : partidos){
+			if(p.getEstado().getClass() == clase){
+				partidosEstado.add(p);
+			}
+		}
+		return partidosEstado;
 	}
 
 }
