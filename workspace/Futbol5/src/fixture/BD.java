@@ -1,26 +1,27 @@
 package fixture;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 
+import javax.swing.ComboBoxModel;
+
+import utils.FutbolException;
 import negocio.*;
-import negocio.inscripcion.Confirmado;
 
 public class BD {
 	
 	private static Administrador mario;
-	public static HashMap<String, Jugador> jug;
-	public static HashMap<String, Jugador> pendientes;
-	public static HashMap<String, String> rechazos;
-	public static ArrayList<Partido> partidos;
+	private static HashMap<String, Jugador> jug;
+	private static HashMap<String, Jugador> pendientes;
+	private static HashMap<String, Rechazo> rechazos;
+	private static ArrayList<Partido> partidos;
 	
-	public static void init() throws Exception{
+	public static void init() throws FutbolException{
 		
 		jug = new HashMap<String, Jugador>();
 		pendientes= new HashMap<String, Jugador>();
-		rechazos  = new HashMap<String, String>();
+		rechazos  = new HashMap<String, Rechazo>();
 		partidos = new ArrayList<Partido>();
 		
 		mario = new Administrador("Mario", 1985, 5, 20);
@@ -43,6 +44,10 @@ public class BD {
 
 	}
 
+	public static Jugador get(String nombre){
+		return jug.get(nombre);
+	}
+	
 	public static void agregarJugador(Jugador jugador) {
 		jug.put(jugador.nombre, jugador);  //(clave,valor) para accederlos
 	}
@@ -55,19 +60,31 @@ public class BD {
 		pendientes.put(jugador.nombre, jugador);
 	}
 	
-	public static void rechazarPendiente(String nombre, String motivo){
-		rechazos.put(nombre, motivo);
+	public static void rechazarJugadorPendiente(String nombre, String motivo) {
+		rechazos.put(nombre,
+				new Rechazo(pendientes.get(nombre), motivo));
+		pendientes.remove(nombre);
+	}
+	
+	public static boolean estaEntreLosJugadores(String nombre){
+		return jug.containsKey(nombre);
+	}
+	
+	public static Jugador getPendiente(String nombre){
+		return pendientes.get(nombre);
 	}
 	
 	public static void agregarPartido(Partido partido){
+		partido.id = partidos.size();
 		partidos.add(partido);
 	}
 
-	public static Partido getPartido(Partido partido){
-		return (Partido) partidos.get(Collections.binarySearch(partidos, partido));
+	public static Partido getPartido(int id){
+		//return (Partido) partidos.get(Collections.binarySearch(partidos, partido));
+		return partidos.get(id);   //partidos identificados por numero (ID)
 	}
 
-	public static ArrayList<Partido> partidosConEstado(Class clase) {
+	public static ArrayList<Partido> partidosConEstado(Class<?> clase) {
 		ArrayList<Partido> partidosEstado = new ArrayList<Partido>();
 		for(Partido p : partidos){
 			if(p.getEstado().getClass() == clase){
@@ -75,6 +92,16 @@ public class BD {
 			}
 		}
 		return partidosEstado;
+	}
+
+	public static void aceptarJugador(String nombre) {
+		agregarJugador(getPendiente(nombre));
+		pendientes.remove(nombre);
+	}
+
+	public static String[] tiposInsc() {
+		String[] tiposInsc = { "Estandar", "Condicional", "Solidaria" };
+		return  tiposInsc;
 	}
 
 }

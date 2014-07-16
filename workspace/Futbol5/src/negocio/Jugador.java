@@ -108,11 +108,11 @@ public class Jugador /*extends Observable implements Observer*/ {
 		BD.agregarPendiente(jugador);
 	}
 
-	public void calificar(Partido partido, Jugador jugador, int nota, String comentario) throws FutbolException {
-		BD.getPartido(partido).calificar(this, jugador, nota, comentario);
+	public void calificar(int idPartido, Jugador jugador, int nota, String comentario) throws FutbolException {
+		BD.getPartido(idPartido).calificar(this, jugador, nota, comentario);
 	}
-	public void calificar(Partido partido, Jugador jugador, int nota) throws FutbolException {
-		BD.getPartido(partido).calificar(this, jugador, nota, "");		
+	public void calificar(int idPartido, Jugador jugador, int nota) throws FutbolException {
+		BD.getPartido(idPartido).calificar(this, jugador, nota, "");		
 	}
 
 	public void recibirNota(Jugador jugador, int nota, String comentario) {

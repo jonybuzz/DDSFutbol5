@@ -11,90 +11,89 @@ import fixture.BD;
 
 public class TestEntrega3 {
 	
-	public static Partido partidoPrueba;
+	public static Partido p = null;
 		
 	@Test
-	public void proponerNuevoJugador() throws Exception {
+	public void proponerNuevoJugador() throws FutbolException {
 
 		BD.init();
 		
-		BD.jug.get("Jose").proponerA(new Jugador("Felipe", 1980, 5, 25));
-		BD.jug.get("Beto").proponerA(new Jugador("Fede", 1800, 4,4));
+		BD.get("Jose").proponerA(new Jugador("Felipe", 1980, 5, 25));
+		BD.get("Beto").proponerA(new Jugador("Fede", 1800, 4,4));
 
-		BD.administrador().aceptar(BD.pendientes.get("Felipe")); //lo busca en la BD y deberia ponerlo en "jug"
-		BD.administrador().rechazar(BD.pendientes.get("Fede"), "Es muy viejo"); //rechazo y motivo
+		BD.administrador().aceptar(BD.getPendiente("Felipe")); //lo busca en la BD y deberia ponerlo en "jug"
+		BD.administrador().rechazar(BD.getPendiente("Fede"), "Es muy viejo"); //rechazo y motivo
 		
-		assertTrue(BD.jug.containsKey("Felipe"));
-		assertFalse(BD.jug.containsKey("Fede"));
+		assertTrue(BD.estaEntreLosJugadores("Felipe"));
+		assertFalse(BD.estaEntreLosJugadores("Fede"));
 	}
 
 	
 	@Test
-	public void calificarJugadores() throws Exception {
+	public void calificarJugadores() throws FutbolException {
 		BD.init();
-		partidoPrueba = crearPartido();
-		assertTrue(partidoPrueba.completo());
+		crearPartido();
+		assertTrue(BD.getPartido(0).completo());
 
-		BD.administrador().confirmarPartido(partidoPrueba); //significa que ya se jugo
+		BD.administrador().confirmarPartido(BD.getPartido(0)); //significa que ya se jugo
 		
-		BD.jug.get("Jose").calificar(partidoPrueba, BD.jug.get("Lucas"), 6, "Bien");
-		BD.jug.get("Jose").calificar(partidoPrueba, BD.jug.get("Luis"), 9, "Bien");
-		BD.jug.get("Jose").calificar(partidoPrueba, BD.jug.get("Juan"), 6);  //comm opcional
+		BD.get("Jose").calificar(0, BD.get("Lucas"), 6, "Bien");
+		BD.get("Jose").calificar(0, BD.get("Luis"), 9, "Bien");
+		BD.get("Jose").calificar(0, BD.get("Juan"), 6);  //comm opcional
 		
-		BD.jug.get("Pepe").calificar(partidoPrueba, BD.jug.get("Lucas"), 1, "Mal");
-		BD.jug.get("Pepe").calificar(partidoPrueba, BD.jug.get("Luis"), 5);
-		BD.jug.get("Pepe").calificar(partidoPrueba, BD.jug.get("Juan"), 2, "Mal");
+		BD.get("Pepe").calificar(0, BD.get("Lucas"), 1, "Mal");
+		BD.get("Pepe").calificar(0, BD.get("Luis"), 5);
+		BD.get("Pepe").calificar(0, BD.get("Juan"), 2, "Mal");
 
-		assertTrue(BD.jug.get("Lucas").calificacionesPromedio() == 3.5);
-		assertTrue(BD.jug.get("Luis").calificacionesPromedio() == 7);
-		assertTrue(BD.jug.get("Juan").calificacionesPromedio() == 4);		
+		assertTrue(BD.get("Lucas").calificacionesPromedio() == 3.5);
+		assertTrue(BD.get("Luis").calificacionesPromedio() == 7);
+		assertTrue(BD.get("Juan").calificacionesPromedio() == 4);		
 	}
 
 	
 	@Test (expected = FutbolException.class)
-	public void calificacionASiMismo() throws Exception {
+	public void calificacionASiMismo() throws FutbolException {
 		BD.init();
-		partidoPrueba = crearPartido();
-		BD.administrador().confirmarPartido(partidoPrueba);
+		crearPartido();
+		BD.administrador().confirmarPartido(BD.getPartido(0));
 		
-		BD.jug.get("Pepe").calificar(partidoPrueba, BD.jug.get("Pepe"), 10, "Perfecto");
+		BD.get("Pepe").calificar(0, BD.get("Pepe"), 10, "Perfecto");
 	}
 
 	
 	@Test (expected = FutbolException.class)
-	public void calificacionDeAlguienQueNoJugo() throws Exception {
+	public void calificacionDeAlguienQueNoJugo() throws FutbolException {
 		BD.init();
-		partidoPrueba = crearPartido();
-		BD.administrador().confirmarPartido(partidoPrueba);
+		crearPartido();
+		BD.administrador().confirmarPartido(BD.getPartido(0));
 		
-		BD.administrador().calificar(partidoPrueba, BD.jug.get("Pepe"), 10, "Perfecto"); //este si puede
-		BD.jug.get("Leo").calificar(partidoPrueba, BD.jug.get("Pepe"), 5, "Bien");
+		BD.administrador().calificar(0, BD.get("Pepe"), 10, "Perfecto"); //este si puede
+		BD.get("Leo").calificar(0, BD.get("Pepe"), 5, "Bien");
 	}
 
 	
 	@Test (expected = FutbolException.class)
-	public void calificacionParaAlguienQueNoJugo() throws Exception {
+	public void calificacionParaAlguienQueNoJugo() throws FutbolException {
 		BD.init();
-		partidoPrueba = crearPartido();
-		BD.administrador().confirmarPartido(partidoPrueba);
+		crearPartido();
+		BD.administrador().confirmarPartido(BD.getPartido(0));
 		
-		BD.jug.get("Leo").calificar(partidoPrueba, BD.jug.get("Beto"), 5, "Bien");
+		BD.get("Leo").calificar(0, BD.get("Beto"), 5, "Bien");
 	}
 	
 	
-	private Partido crearPartido() throws Exception {
-		partidoPrueba = BD.administrador().organizarNuevoPartido(2015, 1, 3, 14, 30);
-		BD.jug.get("Jose").inscribirme(partidoPrueba);
-		BD.jug.get("Lucas").inscribirme(partidoPrueba);
-		BD.jug.get("Luis").inscribirme(partidoPrueba);
-		BD.jug.get("Bender").inscribirme(partidoPrueba);
-		BD.jug.get("Ale").inscribirme(partidoPrueba);
-		BD.jug.get("Juan").inscribirme(partidoPrueba);
-		BD.jug.get("Esteban").inscribirme(partidoPrueba);
-		BD.jug.get("Diego").inscribirme(partidoPrueba);
-		BD.jug.get("Ana").inscribirme(partidoPrueba);
-		BD.jug.get("Pepe").inscribirme(partidoPrueba);
-		return partidoPrueba;
+	private void crearPartido() throws FutbolException {
+		BD.administrador().organizarNuevoPartido(2015, 1, 3, 14, 30);
+		BD.get("Jose").inscribirme(BD.getPartido(0));
+		BD.get("Lucas").inscribirme(BD.getPartido(0));
+		BD.get("Luis").inscribirme(BD.getPartido(0));
+		BD.get("Bender").inscribirme(BD.getPartido(0));
+		BD.get("Ale").inscribirme(BD.getPartido(0));
+		BD.get("Juan").inscribirme(BD.getPartido(0));
+		BD.get("Esteban").inscribirme(BD.getPartido(0));
+		BD.get("Diego").inscribirme(BD.getPartido(0));
+		BD.get("Ana").inscribirme(BD.getPartido(0));
+		BD.get("Pepe").inscribirme(BD.getPartido(0));
 	}
 		
 }

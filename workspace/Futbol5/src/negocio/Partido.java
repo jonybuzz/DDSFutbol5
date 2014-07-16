@@ -20,6 +20,7 @@ public class Partido extends Observable implements Comparable<Partido>{
 	public ArrayList<Jugador> equipoB;
 	private Administrador administrador;
 	private EstadoPartido estado;
+	public int id;
 	
 	public Partido(Administrador administrador, int anio, int mes, int dia, int hora, int minutos) throws FutbolException{
 		DateTime nuevaFechaHora = new DateTime(anio, mes, dia, hora, minutos);
@@ -69,10 +70,10 @@ public class Partido extends Observable implements Comparable<Partido>{
 	}
 		
 	public String toString() {
-		DateTimeFormatter fmt = DateTimeFormat.forPattern("dd 'de' MMMM, yyyy 'a las' kk:mm");
+		DateTimeFormatter fmt = DateTimeFormat.forPattern("dd '/' MM '/' yyyy 'a las' kk:mm");
 		String fechaFormateada = fmt.print(this.fechaHora);
 
-		return "Partido del "+ fechaFormateada + "(" + this.completo() + ")";
+		return "Partido del "+ fechaFormateada + " (#" + this.id + ")";
 	}
 
 	public int compareTo(Partido otro){
