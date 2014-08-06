@@ -115,9 +115,13 @@ public class Jugador /*extends Observable implements Observer*/ {
 		BD.getPartido(idPartido).calificar(this, jugador, nota, "");		
 	}
 
-	public void recibirNota(Jugador jugador, int nota, String comentario) {
+	public void recibirNota(Jugador jugador, int nota, String comentario, int idPartido) {
 		calificaciones.add(nota);
-		comentarios.add(jugador + ":" + comentario + " Calificacion: " + nota);		
+		comentarios.add(
+				"Partido #" + idPartido
+				+ "Jugador: " + jugador + ".\""
+				+ comentario + "\". Calificacion: "
+				+ nota);		
 	}
 
 	public double calificacionesPromedio() {

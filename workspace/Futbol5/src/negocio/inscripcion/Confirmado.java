@@ -47,7 +47,7 @@ public class Confirmado implements EstadoPartido {
 		if(jugador.hashCode() == calificado.hashCode())
 			throw new FutbolException(calificado + ": no puede calificarse a si mismo.");
 
-		calificado.recibirNota(jugador, nota, comentario);
+		calificado.recibirNota(jugador, nota, comentario, partido.id);
 	}
 
 }
