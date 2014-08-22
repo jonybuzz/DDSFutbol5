@@ -1,5 +1,11 @@
 package negocio;
 
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.LinkedList;
+
+import ordenamiento.CrHandicap;
+import ordenamiento.Criterio;
 import fixture.BD;
 import negocio.inscripcion.Confirmado;
 import utils.FutbolException;
@@ -39,6 +45,30 @@ public class Administrador extends Jugador {
 
 	public void rechazar(Jugador jugador, String motivo) {
 		BD.rechazarJugadorPendiente(jugador.nombre, motivo);
+	}
+	
+	public void setHandicap(Jugador jugador, int n){
+		jugador.handicap = n;
+	}
+
+	public ArrayList<Jugador> ordenar(ArrayList<Jugador> jugadores,
+										Criterio...criterios) {
+				
+		for (int i=0; i<jugadores.size(); i++){
+			
+			Jugador j = jugadores.get(i);
+			double valor = 0;
+			
+			for (Criterio algoritmo : criterios){
+				valor += algoritmo.valuarJugador(j);		//por cada criterio suma el puntaje
+			}
+			valor /= criterios.length;						//promedia
+			
+			j.valorDeOrdenamiento = valor;					//asigna un valor al jugador
+		}
+				
+		jugadores.sort(Criterio.JugadorComparator);
+		return jugadores;
 	}
 
 }

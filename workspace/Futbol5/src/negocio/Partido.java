@@ -15,7 +15,7 @@ import utils.FutbolException;
 public class Partido extends Observable implements Comparable<Partido>{
 	
 	public DateTime fechaHora;
-	public LinkedList<Jugador> inscriptos;
+	public ArrayList<Jugador> inscriptos;
 	public ArrayList<Jugador> equipoA;
 	public ArrayList<Jugador> equipoB;
 	private Administrador administrador;
@@ -28,7 +28,7 @@ public class Partido extends Observable implements Comparable<Partido>{
 			throw new FutbolException("Partido futuro!");
 		
 		fechaHora = nuevaFechaHora;
-		inscriptos = new LinkedList<Jugador>();
+		inscriptos = new ArrayList<Jugador>();
 		this.administrador = administrador;
 		this.estado = new Abierto(this);
 		

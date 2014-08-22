@@ -7,4 +7,8 @@ public class Solidaria extends TipoInscripcion {
 		this.prioridad = 3;
 	}
 
+	public String toString (){
+		return "S";
+	}
+
 }

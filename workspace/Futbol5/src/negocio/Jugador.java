@@ -1,10 +1,14 @@
 package negocio;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Stack;
 //import java.util.Observable;
 //import java.util.Observer;
 import java.util.TreeSet;
+
 import org.joda.time.*;
+
 import fixture.BD;
 import negocio.inscripcion.*;
 import utils.*;
@@ -20,8 +24,9 @@ public class Jugador /*extends Observable implements Observer*/ {
 	public boolean recibiMail = false;
 	public Mail casilla;
 	public TreeSet<Jugador> amigos;
-	public ArrayList<Integer> calificaciones;
-	public ArrayList<String> comentarios;
+	public Stack<Calificacion> calificaciones;
+	public int handicap;
+	public double valorDeOrdenamiento;
 
 	public Jugador(String nombre, int anio, int mes, int dia) throws FutbolException{
 		this.nombre = nombre;
@@ -34,8 +39,7 @@ public class Jugador /*extends Observable implements Observer*/ {
 		this.amigos = new TreeSet<Jugador>();
 		this.mailsender = new MailSender();
 		this.infracciones = new ArrayList<Infraccion>();
-		this.calificaciones = new ArrayList<Integer>();
-		this.comentarios = new ArrayList<String>();
+		this.calificaciones = new Stack<Calificacion>();
 	}
 	
 	public Jugador(String nombre, String mail, int anio, int mes, int dia) throws FutbolException {
@@ -112,26 +116,23 @@ public class Jugador /*extends Observable implements Observer*/ {
 		BD.getPartido(idPartido).calificar(this, jugador, nota, comentario);
 	}
 	public void calificar(int idPartido, Jugador jugador, int nota) throws FutbolException {
-		BD.getPartido(idPartido).calificar(this, jugador, nota, "");		
+		this.calificar(idPartido, jugador, nota, "");
 	}
 
 	public void recibirNota(Jugador jugador, int nota, String comentario, int idPartido) {
-		calificaciones.add(nota);
-		comentarios.add(
-				"Partido #" + idPartido
-				+ "Jugador: " + jugador + ".\""
-				+ comentario + "\". Calificacion: "
-				+ nota);		
+		calificaciones.push(new Calificacion(jugador, nota, comentario, idPartido));
 	}
 
-	public double calificacionesPromedio() {
+	public double calificacionesPromedio() throws FutbolException {
 		double total = 0, cant = 0;
 		
-		for(int nota : this.calificaciones){
-			total += nota;
+		for(Calificacion calif : this.calificaciones){
+			total += calif.getNota();
 			cant++;
 		}
-		return total/cant;
+		if (cant != 0)
+			return total/cant;
+		else throw new FutbolException("No recibio calificaciones aun.");
 	}
 
 }

@@ -13,5 +13,9 @@ public class Condicional extends TipoInscripcion {
 	public String getCondicion() {
 		return condicion;
 	}
+	
+	public String toString (){
+		return "C";
+	}
 
 }
