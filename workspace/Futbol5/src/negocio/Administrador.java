@@ -51,10 +51,6 @@ public class Administrador extends Jugador {
 		jugador.handicap = n;
 	}
 	
-	public void setDato(Criterio algoritmo, int n){ //agrega un dato necesario para ciertos algoritmos de ordenamiento
-		algoritmo.dato = n;						// por ej la cantidad de partidos de los que promediar
-	}
-
 	public ArrayList<Jugador> ordenar(ArrayList<Jugador> jugadores,
 										Criterio...criterios) {
 				
