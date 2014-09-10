@@ -50,7 +50,7 @@ public class Administrador extends Jugador {
 	public void setHandicap(Jugador jugador, int n){
 		jugador.handicap = n;
 	}
-
+	
 	public ArrayList<Jugador> ordenar(ArrayList<Jugador> jugadores,
 										Criterio...criterios) {
 				
