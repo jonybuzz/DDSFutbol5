@@ -1,12 +1,14 @@
 package ordenamiento;
 
 import java.util.Comparator;
+
+import utils.FutbolException;
 import negocio.Jugador;
 
 
 public abstract class Criterio {
 
-	public abstract int valuarJugador(Jugador j);	//metodo a impl por cada criterio
+	public abstract int valuarJugador(Jugador j) throws FutbolException;	//metodo a impl por cada criterio
 	
 	
 ///////////////////comparator para ordenar/////////////////////////
@@ -16,9 +18,9 @@ public abstract class Criterio {
 
 		public int compare(Jugador jug1, Jugador jug2) {
 				
-			if(jug1.valorDeOrdenamiento<jug2.valorDeOrdenamiento)
-				return -1;
 			if(jug1.valorDeOrdenamiento>jug2.valorDeOrdenamiento)
+				return -1;
+			if(jug1.valorDeOrdenamiento<jug2.valorDeOrdenamiento)
 				return 1;
 			else return 0;
 		}

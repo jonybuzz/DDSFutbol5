@@ -1,11 +1,9 @@
 package negocio;
 
 import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.LinkedList;
 
-import ordenamiento.CrHandicap;
 import ordenamiento.Criterio;
+import ordenamiento.DivisionEquipos;
 import fixture.BD;
 import negocio.inscripcion.Confirmado;
 import utils.FutbolException;
@@ -52,7 +50,7 @@ public class Administrador extends Jugador {
 	}
 	
 	public ArrayList<Jugador> ordenar(ArrayList<Jugador> jugadores,
-										Criterio...criterios) {
+										Criterio...criterios) throws FutbolException {
 				
 		for (int i=0; i<jugadores.size(); i++){
 			
@@ -67,8 +65,14 @@ public class Administrador extends Jugador {
 			j.valorDeOrdenamiento = valor;					//asigna un valor al jugador
 		}
 				
-		jugadores.sort(Criterio.JugadorComparator); ////////TODO averiguar como funciona sort
+		jugadores.sort(Criterio.JugadorComparator);
 		return jugadores;
+	}
+
+	public void generarEquipos(Partido partido, DivisionEquipos division) {
+		
+		partido.equipoA = division.generarEquipoA();
+		partido.equipoB = division.generarEquipoB();
 	}
 
 }

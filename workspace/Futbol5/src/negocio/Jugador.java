@@ -1,8 +1,6 @@
 package negocio;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Stack;
 //import java.util.Observable;
 //import java.util.Observer;
 import java.util.TreeSet;
@@ -24,7 +22,7 @@ public class Jugador /*extends Observable implements Observer*/ {
 	public boolean recibiMail = false;
 	public Mail casilla;
 	public TreeSet<Jugador> amigos;
-	public Stack<Calificacion> calificaciones;
+	public ArrayList<Calificacion> calificaciones;
 	public int handicap;
 	public double valorDeOrdenamiento;
 
@@ -39,7 +37,7 @@ public class Jugador /*extends Observable implements Observer*/ {
 		this.amigos = new TreeSet<Jugador>();
 		this.mailsender = new MailSender();
 		this.infracciones = new ArrayList<Infraccion>();
-		this.calificaciones = new Stack<Calificacion>();
+		this.calificaciones = new ArrayList<Calificacion>();
 	}
 	
 	public Jugador(String nombre, String mail, int anio, int mes, int dia) throws FutbolException {
@@ -120,7 +118,7 @@ public class Jugador /*extends Observable implements Observer*/ {
 	}
 
 	public void recibirNota(Jugador jugador, int nota, String comentario, int idPartido) {
-		calificaciones.push(new Calificacion(jugador, nota, comentario, idPartido));
+		calificaciones.add(new Calificacion(jugador, nota, comentario, idPartido));
 	}
 
 	public double calificacionesPromedio() throws FutbolException {
