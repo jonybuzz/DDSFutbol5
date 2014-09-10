@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.Random;
 
 import ordenamiento.CrHandicap;
 
@@ -26,17 +27,24 @@ public class TestEntrega4 {
 		BD.administrador().confirmarPartido(BD.getPartido(0));
 		
 		ArrayList<Jugador> lista = BD.getPartido(0).inscriptos;
+		System.out.print("\n" + lista + "\n");
+
 		
 		for(Jugador jug : lista){
-			int nota = (int)(Math.random() * (10+1));		//num aleatorio [0;10]
+			Random rnd = new Random();
+			int nota = rnd.nextInt(10)+1;		//num aleatorio [1;10]
 			BD.administrador().setHandicap(jug, nota);
+			System.out.print(jug + " " + nota);
 		}
 		
-		ArrayList<Jugador> listaOrdenada = BD.administrador().ordenar(lista, new CrHandicap());
+		ArrayList<Jugador> listaOrdenada = BD.administrador().ordenar(lista, new CrHandicap());  //TODO def sort
 		
-		System.out.print(lista + "\n");
+		System.out.print("\n" + lista + "\n");
+		//System.out.print(lista.get(9).handicap + "\n");
 
-		System.out.print(listaOrdenada);
+		System.out.print(listaOrdenada + "\n");
+		//System.out.print(listaOrdenada.get(9).handicap + "\n");
+
 		
 	}
 

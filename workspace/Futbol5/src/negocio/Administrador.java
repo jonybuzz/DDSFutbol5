@@ -67,7 +67,7 @@ public class Administrador extends Jugador {
 			j.valorDeOrdenamiento = valor;					//asigna un valor al jugador
 		}
 				
-		jugadores.sort(Criterio.JugadorComparator);
+		jugadores.sort(Criterio.JugadorComparator); ////////TODO averiguar como funciona sort
 		return jugadores;
 	}
 
