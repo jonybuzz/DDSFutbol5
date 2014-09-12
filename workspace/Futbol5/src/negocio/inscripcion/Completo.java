@@ -1,5 +1,7 @@
 package negocio.inscripcion;
 
+import java.util.ArrayList;
+
 import utils.FutbolException;
 import utils.Mail;
 import negocio.Jugador;
@@ -33,6 +35,13 @@ public class Completo implements EstadoPartido {
 	
 	public void calificar(Jugador jugador, Jugador calificado, int nota, String comentario) throws FutbolException {
 		throw new FutbolException("Todavia no se puede calificar.");
+	}
+
+	public void setEquipos(ArrayList<Jugador> equipoA,
+			ArrayList<Jugador> equipoB) throws FutbolException {
+
+		partido.equipoA = equipoA;
+		partido.equipoB = equipoB;
 	}
 
 }

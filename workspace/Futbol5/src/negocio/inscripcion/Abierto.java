@@ -1,5 +1,7 @@
 package negocio.inscripcion;
 
+import java.util.ArrayList;
+
 import utils.FutbolException;
 import utils.Mail;
 import negocio.Jugador;
@@ -17,8 +19,8 @@ public class Abierto implements EstadoPartido {
 		if(!partido.estaInscripto(jugador)) {
 			partido.inscriptos.add(pos, jugador);
 			if(partido.completo()){
-				partido.setEstado(new Completo(partido));  //pasar estado a confirmado
 				partido.notificarAdministrador();
+				partido.setEstado(new Completo(partido));  //pasar estado a confirmado
 			}
 		}
 		else throw new FutbolException(jugador + " ya esta inscripto.");
@@ -36,6 +38,13 @@ public class Abierto implements EstadoPartido {
 
 	public void calificar(Jugador jugador, Jugador calificado, int nota, String comentario) throws FutbolException {
 		throw new FutbolException("Todavia no se puede calificar.");
+	}
+
+	public void setEquipos(ArrayList<Jugador> equipoA,
+			ArrayList<Jugador> equipoB) throws FutbolException {
+
+		partido.equipoA = equipoA;
+		partido.equipoB = equipoB;
 	}
 
 }

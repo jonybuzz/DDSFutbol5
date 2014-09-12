@@ -2,7 +2,6 @@ package negocio;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.Observable;
 
 import negocio.inscripcion.*;
@@ -77,17 +76,19 @@ public class Partido extends Observable implements Comparable<Partido>{
 	}
 
 	public int compareTo(Partido otro){
-		if (otro.fechaHora.isAfter(this.fechaHora)){
-			return -1;
-		}
-		if (otro.fechaHora.isBefore(this.fechaHora)){
-			return 1;
-		}
+		if (otro.fechaHora.isAfter(this.fechaHora)) return -1;
+		if (otro.fechaHora.isBefore(this.fechaHora)) return 1;
 		else return 0;
 	}
 
 	public void calificar(Jugador jugador, Jugador calificado, int nota, String comentario) throws FutbolException {
 		estado.calificar(jugador, calificado, nota, comentario);
+	}
+
+	public void setEquipos(ArrayList<Jugador> equipoA, ArrayList<Jugador> equipoB) throws FutbolException {
+
+		estado.setEquipos(equipoA, equipoB);	//delega en el estado (State Pattern)
+												//Si ya esta confirmado tira una excepcion
 	}
 
 }

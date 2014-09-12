@@ -1,5 +1,7 @@
 package negocio.inscripcion;
 
+import java.util.ArrayList;
+
 import utils.FutbolException;
 import utils.Mail;
 import negocio.Jugador;
@@ -48,6 +50,12 @@ public class Confirmado implements EstadoPartido {
 			throw new FutbolException(calificado + ": no puede calificarse a si mismo.");
 
 		calificado.recibirNota(jugador, nota, comentario, partido.id);
+	}
+
+	public void setEquipos(ArrayList<Jugador> equipoA,
+			ArrayList<Jugador> equipoB) throws FutbolException {
+		
+		throw new FutbolException("No se pueden cambiar los equipos. Partido Confirmado");
 	}
 
 }

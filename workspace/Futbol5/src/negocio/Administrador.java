@@ -52,9 +52,8 @@ public class Administrador extends Jugador {
 	public ArrayList<Jugador> ordenar(ArrayList<Jugador> jugadores,
 										Criterio...criterios) throws FutbolException {
 				
-		for (int i=0; i<jugadores.size(); i++){
+		for (Jugador j : jugadores){
 			
-			Jugador j = jugadores.get(i);
 			double valor = 0;
 			
 			for (Criterio algoritmo : criterios){
@@ -69,10 +68,10 @@ public class Administrador extends Jugador {
 		return jugadores;
 	}
 
-	public void generarEquipos(Partido partido, DivisionEquipos division) {
+	public void generarEquipos(Partido partido, DivisionEquipos division) throws FutbolException {
 		
-		partido.equipoA = division.generarEquipoA();
-		partido.equipoB = division.generarEquipoB();
+		partido.setEquipos(division.generarEquipoA(), division.generarEquipoB());
+		//asigna los equipos resultantes del algoritmo. Division chequea que sean al menos 10 jug
 	}
 
 }
