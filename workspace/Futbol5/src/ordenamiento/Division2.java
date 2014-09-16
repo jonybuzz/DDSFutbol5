@@ -1,14 +1,8 @@
 package ordenamiento;
 
-import java.util.ArrayList;
-
-import utils.FutbolException;
-import negocio.Jugador;
-
 public class Division2 extends DivisionEquipos{
 	
-	public Division2(ArrayList<Jugador> lista) throws FutbolException{
-		super(lista);
+	public Division2() {
 
 		posA.add(1);	posB.add(2);
 		posA.add(4);	posB.add(3);

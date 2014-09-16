@@ -9,7 +9,7 @@ public class PromedioUltimoPartido extends Criterio{
 	public PromedioUltimoPartido(){
 	}
 
-	public int valuarJugador(Jugador j) throws FutbolException {
+	public double valuarJugador(Jugador j) throws FutbolException {
 		int cant = 0;
 		int total = 0;
 		int size = j.calificaciones.size();
@@ -25,7 +25,7 @@ public class PromedioUltimoPartido extends Criterio{
 					cant++;
 				}
 			}
-			return total / cant;
+			return (double) total / cant;
 		}
 		else throw new FutbolException("No recibio calificaciones aun.");
 	}

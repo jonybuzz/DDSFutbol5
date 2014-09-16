@@ -1,7 +1,5 @@
 package negocio;
 
-import java.util.ArrayList;
-
 import ordenamiento.Criterio;
 import ordenamiento.DivisionEquipos;
 import fixture.BD;
@@ -33,8 +31,10 @@ public class Administrador extends Jugador {
 		mailsender.send(this, mail);
 	}
 
-	public void confirmarPartido(Partido partido) {
-		partido.setEstado(new Confirmado(partido));
+	public void confirmarPartido(Partido partido) throws FutbolException {
+		if(partido.equipoA!=null && partido.equipoB!=null)
+			partido.setEstado(new Confirmado(partido));
+		else throw new FutbolException("Para confirmar deben formarse los equipos");
 	}
 
 	public void aceptar(Jugador jugador) {	
@@ -49,27 +49,13 @@ public class Administrador extends Jugador {
 		jugador.handicap = n;
 	}
 	
-	public ArrayList<Jugador> ordenar(ArrayList<Jugador> jugadores,
-										Criterio...criterios) throws FutbolException {
-				
-		for (Jugador j : jugadores){
-			
-			double valor = 0;
-			
-			for (Criterio algoritmo : criterios){
-				valor += algoritmo.valuarJugador(j);		//por cada criterio suma el puntaje
-			}
-			valor /= criterios.length;						//promedia
-			
-			j.valorDeOrdenamiento = valor;					//asigna un valor al jugador
-		}
-				
-		jugadores.sort(Criterio.JugadorComparator);
-		return jugadores;
+	public void ordenar(Partido partido, Criterio...criterios) throws FutbolException {
+		partido.ordenar(criterios);		
 	}
 
 	public void generarEquipos(Partido partido, DivisionEquipos division) throws FutbolException {
 		
+		division.setLista(partido.inscriptos);
 		partido.setEquipos(division.generarEquipoA(), division.generarEquipoB());
 		//asigna los equipos resultantes del algoritmo. Division chequea que sean al menos 10 jug
 	}

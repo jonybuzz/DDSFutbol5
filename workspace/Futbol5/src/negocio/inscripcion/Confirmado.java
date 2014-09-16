@@ -12,7 +12,8 @@ public class Confirmado implements EstadoPartido {
 	private Partido partido;
 
 	public Confirmado(Partido partido){
-		this.partido = partido;
+		//if (partido.equipoA!=null && partido.equipoB!=null)
+			this.partido = partido;
 	}
 
 	public void agregarJugador(Jugador jugador, int pos) throws FutbolException {

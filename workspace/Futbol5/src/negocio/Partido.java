@@ -5,6 +5,7 @@ import java.util.Iterator;
 import java.util.Observable;
 
 import negocio.inscripcion.*;
+import ordenamiento.Criterio;
 
 import org.joda.time.*;
 import org.joda.time.format.*;
@@ -83,6 +84,23 @@ public class Partido extends Observable implements Comparable<Partido>{
 
 	public void calificar(Jugador jugador, Jugador calificado, int nota, String comentario) throws FutbolException {
 		estado.calificar(jugador, calificado, nota, comentario);
+	}
+
+	public void ordenar(Criterio[] criterios) throws FutbolException {
+
+		for (Jugador j : inscriptos){
+			
+			double valor = 0;
+			
+			for (Criterio algoritmo : criterios){
+				valor += algoritmo.valuarJugador(j);		//por cada criterio suma el puntaje
+			}
+			valor /= criterios.length;						//promedia
+						
+			j.valorDeOrdenamiento = valor;					//asigna un valor al jugador
+		}
+				
+		inscriptos.sort(Criterio.JugadorComparator);		
 	}
 
 	public void setEquipos(ArrayList<Jugador> equipoA, ArrayList<Jugador> equipoB) throws FutbolException {

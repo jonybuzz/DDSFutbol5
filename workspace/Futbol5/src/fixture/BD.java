@@ -1,10 +1,7 @@
 package fixture;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
-
-import javax.swing.ComboBoxModel;
 
 import utils.FutbolException;
 import negocio.*;
@@ -77,6 +74,10 @@ public class BD {
 	public static void agregarPartido(Partido partido){
 		partido.id = partidos.size();
 		partidos.add(partido);
+	}
+
+	public static ArrayList<Partido> getPartidos() {
+		return partidos;
 	}
 
 	public static Partido getPartido(int id){

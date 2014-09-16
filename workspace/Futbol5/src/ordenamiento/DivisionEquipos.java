@@ -8,17 +8,9 @@ import negocio.Jugador;
 public abstract class DivisionEquipos {
 		
 	protected ArrayList<Jugador> lista;
+	//las posiciones en la lista ordenada que se usan para formar equipos
 	protected ArrayList<Integer> posA = new ArrayList<Integer>(5);
 	protected ArrayList<Integer> posB = new ArrayList<Integer>(5);
-
-	
-	public DivisionEquipos(ArrayList<Jugador> lista) throws FutbolException{
-		if (lista.size()>=10){
-							//toma los primeros 10 de la lista
-			this.lista = new ArrayList<Jugador>(lista.subList(0, 10));
-		}
-		else throw new FutbolException("No hay 10 jugadores para armar equipoS");
-	}
 	
 	
 	public ArrayList<Jugador> generarEquipoA() {
@@ -37,6 +29,15 @@ public abstract class DivisionEquipos {
 			equipo.add(this.lista.get(num-1));
 		}
 		return equipo;
+	}
+
+	
+	public void setLista(ArrayList<Jugador> lista) throws FutbolException {
+		
+		if (lista.size()>=10){		//toma los primeros 10 de la lista
+			this.lista = new ArrayList<Jugador>(lista.subList(0, 10));
+		}
+		else throw new FutbolException("No estan los 10 jugadores para armar equipos");
 	}
 
 }

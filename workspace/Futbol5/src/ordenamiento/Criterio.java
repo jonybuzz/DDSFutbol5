@@ -8,7 +8,7 @@ import negocio.Jugador;
 
 public abstract class Criterio {
 
-	public abstract int valuarJugador(Jugador j) throws FutbolException;	//metodo a impl por cada criterio
+	public abstract double valuarJugador(Jugador j) throws FutbolException;	//metodo a impl por cada criterio
 	
 	
 ///////////////////comparator para ordenar/////////////////////////

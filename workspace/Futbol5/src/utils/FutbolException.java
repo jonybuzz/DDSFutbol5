@@ -1,5 +1,10 @@
 package utils;
 
+import java.awt.Component;
+
+import javax.swing.JDialog;
+import javax.swing.JOptionPane;
+
 public class FutbolException extends Exception {
 
 	private static final long serialVersionUID = 1L;
@@ -9,7 +14,10 @@ public class FutbolException extends Exception {
 	}
 	
 	public FutbolException(String arg0) {
-		super("Futbol5 Error: " + arg0);
+		Component frame = new JDialog();
+		frame.setName("Futbol5 error");
+		JOptionPane.showMessageDialog(frame, arg0, "Futbol5", JOptionPane.ERROR_MESSAGE);
+		//super("Futbol5 Error: " + arg0);
 	}
 
 	public FutbolException(Throwable arg0) {

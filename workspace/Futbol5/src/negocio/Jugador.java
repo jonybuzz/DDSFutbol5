@@ -53,7 +53,7 @@ public class Jugador /*extends Observable implements Observer*/ {
 		return modo;
 	}
 
-	public void modoDeInscrpcion(TipoInscripcion modo) {
+	public void modoDeInscripcion(TipoInscripcion modo) {
 		this.modo = modo;
 	}
 
@@ -79,7 +79,7 @@ public class Jugador /*extends Observable implements Observer*/ {
 
 	public void darmeDeBaja(Partido partido, Jugador reemplazo) throws FutbolException {
 		partido.darDeBaja(this);
-		reemplazo.modoDeInscrpcion(this.getModoDeInscripcion());   //lo inscribe con el mismo modo
+		reemplazo.modoDeInscripcion(this.getModoDeInscripcion());   //lo inscribe con el mismo modo
 		reemplazo.inscribirme(partido);
 	}
 		

@@ -4,9 +4,9 @@ import negocio.Jugador;
 
 public class CritHandicap extends Criterio{
 
-	public int valuarJugador(Jugador j) {
+	public double valuarJugador(Jugador j) {
 
-		return j.handicap;
+		return (double) j.handicap;
 	}
 
 }
