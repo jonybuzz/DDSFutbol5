@@ -1,0 +1,52 @@
+﻿@model Futbol5.Models.Inscripcion
+
+@{
+    ViewBag.Title = "Inscripción";
+}
+
+<h2>Inscripción</h2>
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Inscripcion</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.PartidoId, "Partido")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("PartidoId", String.Empty)
+            @Html.ValidationMessageFor(model => model.PartidoId)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.JugadorId, "Jugador")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("JugadorId", String.Empty)
+            @Html.ValidationMessageFor(model => model.JugadorId)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.TipoInscripcionId, "TipoInscripcion")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("TipoInscripcionId", String.Empty)
+            @Html.ValidationMessageFor(model => model.TipoInscripcionId)
+        </div>
+
+        <p>
+            <input type="submit" value="Inscribir" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Listado", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

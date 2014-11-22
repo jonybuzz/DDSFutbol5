@@ -1,0 +1,101 @@
+﻿@model IEnumerable<Futbol5.Models.Jugador>
+
+@using GridMvc.Html
+
+@{
+    ViewBag.Title = "Listado";
+}
+
+@{
+    //Validation.Add("nacimiento", Validator.DateTime);
+}
+
+@Html.Grid(Model).Columns(columns =>
+            {
+                columns.Add(model => model.Nombre)
+                    .SetWidth(100);
+                columns.Add(model => model.Apodo)
+                    .SetWidth(100);
+                columns.Add(model => model.Fecha_Nac)
+                    .Titled("Fecha de Nacimiento");
+                columns.Add(model => model.Handicap);
+                columns.Add()
+                    .Encoded(false)
+                    .Sanitized(false)
+                    .SetWidth(30)
+                    .RenderValueAs(j =>
+                        @<b>
+                            @Html.ActionLink("Editar", "Edit", new { id = j.Id })
+                        </b>);
+                columns.Add()
+                    .Encoded(false)
+                    .Sanitized(false)
+                    .SetWidth(30)
+                    .RenderValueAs(j =>
+                        @<b>
+                            @Html.ActionLink("Detalles", "Details", new { id = j.Id })
+                        </b>);
+                columns.Add()
+                    .Encoded(false)
+                    .Sanitized(false)
+                    .SetWidth(30)
+                    .RenderValueAs(j =>
+                        @<b>
+                            @Html.ActionLink("Eliminar", "Delete", new { id = j.Id })
+                        </b>);
+            }).SetRowCssClasses(item => item.HandicapColor == "blue" ? "warning" : String.Empty).WithPaging(3).Sortable().Filterable().WithMultipleFilters()
+
+
+
+
+
+
+<p>
+    @Html.ActionLink("Nuevo Jugador", "Create")
+</p>
+<table>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Nombre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Apodo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Fecha_Nac)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Mail)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Handicap)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td style="color:@item.HandicapColor">
+            @Html.DisplayFor(modelItem => item.Nombre)
+        </td>
+        <td style="color:@item.HandicapColor">
+            @Html.DisplayFor(modelItem => item.Apodo)
+        </td>
+        <td style="color:@item.HandicapColor">
+            @Html.DisplayFor(modelItem => item.Fecha_Nac)
+        </td>
+        <td style="color:@item.HandicapColor">
+            @Html.DisplayFor(modelItem => item.Mail)
+        </td>
+        <td style="color:@item.HandicapColor">
+            @Html.DisplayFor(modelItem => item.Handicap)
+        </td>
+        <td>
+            @Html.ActionLink("Editar", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Detalles", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Eliminar", "Delete", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>

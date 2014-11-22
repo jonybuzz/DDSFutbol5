@@ -1,0 +1,36 @@
+﻿@model Futbol5.Models.Partido
+
+@{
+    ViewBag.Title = "Detalles";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>Partido</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Fecha)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Fecha)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Administrador)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Administrador)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.EstadoPartido.Descripcion)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.EstadoPartido.Descripcion)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Editar", "Edit", new { id=Model.Id }) |
+    @Html.ActionLink("Listado", "Index")
+</p>

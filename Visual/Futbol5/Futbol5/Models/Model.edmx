@@ -1,0 +1,720 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Model.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="ModelStoreContainer">
+    <EntitySet Name="JugadorSet" EntityType="Model.Store.JugadorSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="PartidoSet" EntityType="Model.Store.PartidoSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="InscripcionSet" EntityType="Model.Store.InscripcionSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="CalificacionSet" EntityType="Model.Store.CalificacionSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="EstadoPartidoSet" EntityType="Model.Store.EstadoPartidoSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="InfraccionSet" EntityType="Model.Store.InfraccionSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="AmistadSet" EntityType="Model.Store.AmistadSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="TipoInscripcionSet" EntityType="Model.Store.TipoInscripcionSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="EquipoSet" EntityType="Model.Store.EquipoSet" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="InscripcionPartido" Association="Model.Store.InscripcionPartido">
+      <End Role="Inscripcion" EntitySet="InscripcionSet" />
+      <End Role="Partido" EntitySet="PartidoSet" />
+    </AssociationSet>
+    <AssociationSet Name="InscripcionJugador" Association="Model.Store.InscripcionJugador">
+      <End Role="Inscripcion" EntitySet="InscripcionSet" />
+      <End Role="Jugador" EntitySet="JugadorSet" />
+    </AssociationSet>
+    <AssociationSet Name="CalificacionCalificador" Association="Model.Store.CalificacionCalificador">
+      <End Role="Calificacion" EntitySet="CalificacionSet" />
+      <End Role="Jugador" EntitySet="JugadorSet" />
+    </AssociationSet>
+    <AssociationSet Name="CalificacionCalificado" Association="Model.Store.CalificacionCalificado">
+      <End Role="Calificacion" EntitySet="CalificacionSet" />
+      <End Role="Jugador" EntitySet="JugadorSet" />
+    </AssociationSet>
+    <AssociationSet Name="CalificacionPartido" Association="Model.Store.CalificacionPartido">
+      <End Role="Calificacion" EntitySet="CalificacionSet" />
+      <End Role="Partido" EntitySet="PartidoSet" />
+    </AssociationSet>
+    <AssociationSet Name="EstadoPartidoPartido" Association="Model.Store.EstadoPartidoPartido">
+      <End Role="EstadoPartido" EntitySet="EstadoPartidoSet" />
+      <End Role="Partido" EntitySet="PartidoSet" />
+    </AssociationSet>
+    <AssociationSet Name="InfraccionJugador" Association="Model.Store.InfraccionJugador">
+      <End Role="Infraccion" EntitySet="InfraccionSet" />
+      <End Role="Jugador" EntitySet="JugadorSet" />
+    </AssociationSet>
+    <AssociationSet Name="AmigosJugador" Association="Model.Store.AmigosJugador">
+      <End Role="Amigos" EntitySet="AmistadSet" />
+      <End Role="Jugador" EntitySet="JugadorSet" />
+    </AssociationSet>
+    <AssociationSet Name="AmigosJugador1" Association="Model.Store.AmigosJugador1">
+      <End Role="Amigos" EntitySet="AmistadSet" />
+      <End Role="Jugador" EntitySet="JugadorSet" />
+    </AssociationSet>
+    <AssociationSet Name="TipoInscripcionInscripcion" Association="Model.Store.TipoInscripcionInscripcion">
+      <End Role="TipoInscripcion" EntitySet="TipoInscripcionSet" />
+      <End Role="Inscripcion" EntitySet="InscripcionSet" />
+    </AssociationSet>
+    <AssociationSet Name="EquipoInscripcion" Association="Model.Store.EquipoInscripcion">
+      <End Role="Equipo" EntitySet="EquipoSet" />
+      <End Role="Inscripcion" EntitySet="InscripcionSet" />
+    </AssociationSet>
+    <AssociationSet Name="EquipoPartido" Association="Model.Store.EquipoPartido">
+      <End Role="Equipo" EntitySet="EquipoSet" />
+      <End Role="Partido" EntitySet="PartidoSet" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="JugadorSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nombre" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Apodo" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="Fecha_Nac" Type="datetime" Nullable="false" />
+    <Property Name="Mail" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="Handicap" Type="int" Nullable="true" />
+  </EntityType>
+  <EntityType Name="PartidoSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Fecha" Type="datetime" Nullable="false" />
+    <Property Name="Administrador" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="EstadoPartidoId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="InscripcionSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PartidoId" Type="int" Nullable="false" />
+    <Property Name="JugadorId" Type="int" Nullable="false" />
+    <Property Name="TipoInscripcionId" Type="int" Nullable="false" />
+    <Property Name="Comentario" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="EquipoId" Type="int" Nullable="true" />
+  </EntityType>
+  <EntityType Name="CalificacionSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nota" Type="int" Nullable="false" />
+    <Property Name="Comentario" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="JugadorCalificadorId" Type="int" Nullable="false" />
+    <Property Name="JugadorCalificadoId" Type="int" Nullable="false" />
+    <Property Name="PartidoId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="EstadoPartidoSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Descripcion" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="InfraccionSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Fecha" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Motivo" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="JugadorId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AmistadSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="JugadorId" Type="int" Nullable="true" />
+    <Property Name="JugadorId1" Type="int" Nullable="true" />
+  </EntityType>
+  <EntityType Name="TipoInscripcionSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Descripcion" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="EquipoSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PartidoId" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="InscripcionPartido">
+    <End Role="Inscripcion" Type="Model.Store.InscripcionSet" Multiplicity="*" />
+    <End Role="Partido" Type="Model.Store.PartidoSet" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Partido">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Inscripcion">
+        <PropertyRef Name="PartidoId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="InscripcionJugador">
+    <End Role="Inscripcion" Type="Model.Store.InscripcionSet" Multiplicity="*" />
+    <End Role="Jugador" Type="Model.Store.JugadorSet" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Jugador">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Inscripcion">
+        <PropertyRef Name="JugadorId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="CalificacionCalificador">
+    <End Role="Calificacion" Type="Model.Store.CalificacionSet" Multiplicity="*" />
+    <End Role="Jugador" Type="Model.Store.JugadorSet" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Jugador">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Calificacion">
+        <PropertyRef Name="JugadorCalificadorId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="CalificacionCalificado">
+    <End Role="Calificacion" Type="Model.Store.CalificacionSet" Multiplicity="*" />
+    <End Role="Jugador" Type="Model.Store.JugadorSet" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Jugador">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Calificacion">
+        <PropertyRef Name="JugadorCalificadoId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="CalificacionPartido">
+    <End Role="Calificacion" Type="Model.Store.CalificacionSet" Multiplicity="*" />
+    <End Role="Partido" Type="Model.Store.PartidoSet" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Partido">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Calificacion">
+        <PropertyRef Name="PartidoId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="EstadoPartidoPartido">
+    <End Role="EstadoPartido" Type="Model.Store.EstadoPartidoSet" Multiplicity="1" />
+    <End Role="Partido" Type="Model.Store.PartidoSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EstadoPartido">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Partido">
+        <PropertyRef Name="EstadoPartidoId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="InfraccionJugador">
+    <End Role="Infraccion" Type="Model.Store.InfraccionSet" Multiplicity="*" />
+    <End Role="Jugador" Type="Model.Store.JugadorSet" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Jugador">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Infraccion">
+        <PropertyRef Name="JugadorId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="AmigosJugador">
+    <End Role="Amigos" Type="Model.Store.AmistadSet" Multiplicity="*" />
+    <End Role="Jugador" Type="Model.Store.JugadorSet" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Jugador">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Amigos">
+        <PropertyRef Name="JugadorId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="AmigosJugador1">
+    <End Role="Amigos" Type="Model.Store.AmistadSet" Multiplicity="*" />
+    <End Role="Jugador" Type="Model.Store.JugadorSet" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Jugador">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Amigos">
+        <PropertyRef Name="JugadorId1" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="TipoInscripcionInscripcion">
+    <End Role="TipoInscripcion" Type="Model.Store.TipoInscripcionSet" Multiplicity="1" />
+    <End Role="Inscripcion" Type="Model.Store.InscripcionSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TipoInscripcion">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Inscripcion">
+        <PropertyRef Name="TipoInscripcionId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="EquipoInscripcion">
+    <End Role="Equipo" Type="Model.Store.EquipoSet" Multiplicity="0..1" />
+    <End Role="Inscripcion" Type="Model.Store.InscripcionSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Equipo">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Inscripcion">
+        <PropertyRef Name="EquipoId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="EquipoPartido">
+    <End Role="Equipo" Type="Model.Store.EquipoSet" Multiplicity="*" />
+    <End Role="Partido" Type="Model.Store.PartidoSet" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Partido">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Equipo">
+        <PropertyRef Name="PartidoId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="Model" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="ModelContainer" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="JugadorSet" EntityType="Model.Jugador" />
+          <EntitySet Name="PartidoSet" EntityType="Model.Partido" />
+          <EntitySet Name="InscripcionSet" EntityType="Model.Inscripcion" />
+          <AssociationSet Name="InscripcionPartido" Association="Model.InscripcionPartido">
+            <End Role="Inscripcion" EntitySet="InscripcionSet" />
+            <End Role="Partido" EntitySet="PartidoSet" />
+          </AssociationSet>
+          <AssociationSet Name="InscripcionJugador" Association="Model.InscripcionJugador">
+            <End Role="Inscripcion" EntitySet="InscripcionSet" />
+            <End Role="Jugador" EntitySet="JugadorSet" />
+          </AssociationSet>
+          <EntitySet Name="CalificacionSet" EntityType="Model.Calificacion" />
+          <AssociationSet Name="CalificacionCalificador" Association="Model.CalificacionCalificador">
+            <End Role="Calificacion" EntitySet="CalificacionSet" />
+            <End Role="Jugador" EntitySet="JugadorSet" />
+          </AssociationSet>
+          <AssociationSet Name="CalificacionCalificado" Association="Model.CalificacionCalificado">
+            <End Role="Calificacion" EntitySet="CalificacionSet" />
+            <End Role="Jugador" EntitySet="JugadorSet" />
+          </AssociationSet>
+          <AssociationSet Name="CalificacionPartido" Association="Model.CalificacionPartido">
+            <End Role="Calificacion" EntitySet="CalificacionSet" />
+            <End Role="Partido" EntitySet="PartidoSet" />
+          </AssociationSet>
+          <EntitySet Name="EstadoPartidoSet" EntityType="Model.EstadoPartido" />
+          <AssociationSet Name="EstadoPartidoPartido" Association="Model.EstadoPartidoPartido">
+            <End Role="EstadoPartido" EntitySet="EstadoPartidoSet" />
+            <End Role="Partido" EntitySet="PartidoSet" />
+          </AssociationSet>
+          <EntitySet Name="InfraccionSet" EntityType="Model.Infraccion" />
+          <AssociationSet Name="InfraccionJugador" Association="Model.InfraccionJugador">
+            <End Role="Infraccion" EntitySet="InfraccionSet" />
+            <End Role="Jugador" EntitySet="JugadorSet" />
+          </AssociationSet>
+          <EntitySet Name="AmistadSet" EntityType="Model.Amistad" />
+          <AssociationSet Name="AmigosJugador" Association="Model.AmigosJugador">
+            <End Role="Amigos" EntitySet="AmistadSet" />
+            <End Role="Jugador" EntitySet="JugadorSet" />
+          </AssociationSet>
+          <AssociationSet Name="AmigosJugador1" Association="Model.AmigosJugador1">
+            <End Role="Amigos" EntitySet="AmistadSet" />
+            <End Role="Jugador" EntitySet="JugadorSet" />
+          </AssociationSet>
+          <EntitySet Name="TipoInscripcionSet" EntityType="Model.TipoInscripcion" />
+          <AssociationSet Name="TipoInscripcionInscripcion" Association="Model.TipoInscripcionInscripcion">
+            <End Role="TipoInscripcion" EntitySet="TipoInscripcionSet" />
+            <End Role="Inscripcion" EntitySet="InscripcionSet" />
+          </AssociationSet>
+          <EntitySet Name="EquipoSet" EntityType="Model.Equipo" />
+          <AssociationSet Name="EquipoInscripcion" Association="Model.EquipoInscripcion">
+            <End Role="Equipo" EntitySet="EquipoSet" />
+            <End Role="Inscripcion" EntitySet="InscripcionSet" />
+          </AssociationSet>
+          <AssociationSet Name="EquipoPartido" Association="Model.EquipoPartido">
+            <End Role="Equipo" EntitySet="EquipoSet" />
+            <End Role="Partido" EntitySet="PartidoSet" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Jugador">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="Apodo" Type="String" Nullable="true" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="Fecha_Nac" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Mail" Type="String" Nullable="true" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="Handicap" Type="Int32" Nullable="true" />
+          <NavigationProperty Name="Inscripcion" Relationship="Model.InscripcionJugador" FromRole="Jugador" ToRole="Inscripcion" />
+          <NavigationProperty Name="CalificacionesDadas" Relationship="Model.CalificacionCalificador" FromRole="Jugador" ToRole="Calificacion" />
+          <NavigationProperty Name="CalificacionesRecibidas" Relationship="Model.CalificacionCalificado" FromRole="Jugador" ToRole="Calificacion" />
+          <NavigationProperty Name="Infraccion" Relationship="Model.InfraccionJugador" FromRole="Jugador" ToRole="Infraccion" />
+          <NavigationProperty Name="Amigos" Relationship="Model.AmigosJugador" FromRole="Jugador" ToRole="Amigos" />
+          <NavigationProperty Name="Amigos1" Relationship="Model.AmigosJugador1" FromRole="Jugador" ToRole="Amigos" />
+        </EntityType>
+        <EntityType Name="Partido">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Administrador" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="Inscripcion" Relationship="Model.InscripcionPartido" FromRole="Partido" ToRole="Inscripcion" />
+          <NavigationProperty Name="Calificaciones" Relationship="Model.CalificacionPartido" FromRole="Partido" ToRole="Calificacion" />
+          <NavigationProperty Name="EstadoPartido" Relationship="Model.EstadoPartidoPartido" FromRole="Partido" ToRole="EstadoPartido" />
+          <Property Name="EstadoPartidoId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Equipo" Relationship="Model.EquipoPartido" FromRole="Partido" ToRole="Equipo" />
+        </EntityType>
+        <EntityType Name="Inscripcion">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Partido" Relationship="Model.InscripcionPartido" FromRole="Inscripcion" ToRole="Partido" />
+          <Property Name="PartidoId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Jugador" Relationship="Model.InscripcionJugador" FromRole="Inscripcion" ToRole="Jugador" />
+          <Property Name="JugadorId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="TipoInscripcion" Relationship="Model.TipoInscripcionInscripcion" FromRole="Inscripcion" ToRole="TipoInscripcion" />
+          <Property Name="TipoInscripcionId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Equipo" Relationship="Model.EquipoInscripcion" FromRole="Inscripcion" ToRole="Equipo" />
+          <Property Name="Comentario" Type="String" Nullable="true" />
+          <Property Name="EquipoId" Type="Int32" Nullable="true" />
+        </EntityType>
+        <Association Name="InscripcionPartido">
+          <End Type="Model.Inscripcion" Role="Inscripcion" Multiplicity="*" />
+          <End Type="Model.Partido" Role="Partido" Multiplicity="1" />
+          <ReferentialConstraint>
+            <Principal Role="Partido">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Inscripcion">
+              <PropertyRef Name="PartidoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="InscripcionJugador">
+          <End Type="Model.Inscripcion" Role="Inscripcion" Multiplicity="*" />
+          <End Type="Model.Jugador" Role="Jugador" Multiplicity="1" />
+          <ReferentialConstraint>
+            <Principal Role="Jugador">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Inscripcion">
+              <PropertyRef Name="JugadorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Calificacion">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nota" Type="Int32" Nullable="false" />
+          <Property Name="Comentario" Type="String" Nullable="true" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="Calificador" Relationship="Model.CalificacionCalificador" FromRole="Calificacion" ToRole="Jugador" />
+          <Property Name="JugadorCalificadorId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Calificado" Relationship="Model.CalificacionCalificado" FromRole="Calificacion" ToRole="Jugador" />
+          <Property Name="JugadorCalificadoId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Partido" Relationship="Model.CalificacionPartido" FromRole="Calificacion" ToRole="Partido" />
+          <Property Name="PartidoId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <Association Name="CalificacionCalificador">
+          <End Type="Model.Calificacion" Role="Calificacion" Multiplicity="*" />
+          <End Type="Model.Jugador" Role="Jugador" Multiplicity="1" />
+          <ReferentialConstraint>
+            <Principal Role="Jugador">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Calificacion">
+              <PropertyRef Name="JugadorCalificadorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="CalificacionCalificado">
+          <End Type="Model.Calificacion" Role="Calificacion" Multiplicity="*" />
+          <End Type="Model.Jugador" Role="Jugador" Multiplicity="1" />
+          <ReferentialConstraint>
+            <Principal Role="Jugador">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Calificacion">
+              <PropertyRef Name="JugadorCalificadoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="CalificacionPartido">
+          <End Type="Model.Calificacion" Role="Calificacion" Multiplicity="*" />
+          <End Type="Model.Partido" Role="Partido" Multiplicity="1" />
+          <ReferentialConstraint>
+            <Principal Role="Partido">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Calificacion">
+              <PropertyRef Name="PartidoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="EstadoPartido">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Partido" Relationship="Model.EstadoPartidoPartido" FromRole="EstadoPartido" ToRole="Partido" />
+          <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+        </EntityType>
+        <Association Name="EstadoPartidoPartido">
+          <End Type="Model.EstadoPartido" Role="EstadoPartido" Multiplicity="1" />
+          <End Type="Model.Partido" Role="Partido" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EstadoPartido">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Partido">
+              <PropertyRef Name="EstadoPartidoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Infraccion">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Fecha" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="Motivo" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="Jugador" Relationship="Model.InfraccionJugador" FromRole="Infraccion" ToRole="Jugador" />
+          <Property Name="JugadorId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <Association Name="InfraccionJugador">
+          <End Type="Model.Infraccion" Role="Infraccion" Multiplicity="*" />
+          <End Type="Model.Jugador" Role="Jugador" Multiplicity="1" />
+          <ReferentialConstraint>
+            <Principal Role="Jugador">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Infraccion">
+              <PropertyRef Name="JugadorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Amistad" >
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <NavigationProperty Name="Jugador" Relationship="Model.AmigosJugador" FromRole="Amigos" ToRole="Jugador" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="JugadorId" Type="Int32" Nullable="true" />
+          <NavigationProperty Name="Jugador1" Relationship="Model.AmigosJugador1" FromRole="Amigos" ToRole="Jugador" />
+          <Property Name="JugadorId1" Type="Int32" Nullable="true" />
+        </EntityType>
+        <Association Name="AmigosJugador">
+          <End Type="Model.Amistad" Role="Amigos" Multiplicity="*" />
+          <End Type="Model.Jugador" Role="Jugador" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Jugador">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Amigos">
+              <PropertyRef Name="JugadorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="AmigosJugador1">
+          <End Type="Model.Amistad" Role="Amigos" Multiplicity="*" />
+          <End Type="Model.Jugador" Role="Jugador" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Jugador">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Amigos">
+              <PropertyRef Name="JugadorId1" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="TipoInscripcion">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Inscripcion" Relationship="Model.TipoInscripcionInscripcion" FromRole="TipoInscripcion" ToRole="Inscripcion" />
+          <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+        </EntityType>
+        <Association Name="TipoInscripcionInscripcion">
+          <End Type="Model.TipoInscripcion" Role="TipoInscripcion" Multiplicity="1" />
+          <End Type="Model.Inscripcion" Role="Inscripcion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoInscripcion">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Inscripcion">
+              <PropertyRef Name="TipoInscripcionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Equipo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Inscripcion" Relationship="Model.EquipoInscripcion" FromRole="Equipo" ToRole="Inscripcion" />
+          <NavigationProperty Name="Partido" Relationship="Model.EquipoPartido" FromRole="Equipo" ToRole="Partido" />
+          <Property Name="PartidoId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <Association Name="EquipoInscripcion">
+          <End Type="Model.Equipo" Role="Equipo" Multiplicity="0..1" />
+          <End Type="Model.Inscripcion" Role="Inscripcion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Equipo">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Inscripcion">
+              <PropertyRef Name="EquipoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="EquipoPartido">
+          <End Type="Model.Equipo" Role="Equipo" Multiplicity="*" />
+          <End Type="Model.Partido" Role="Partido" Multiplicity="1" />
+          <ReferentialConstraint>
+            <Principal Role="Partido">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Equipo">
+              <PropertyRef Name="PartidoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="ModelContainer">
+    <EntitySetMapping Name="JugadorSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.Jugador)">
+        <MappingFragment StoreEntitySet="JugadorSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="Apodo" ColumnName="Apodo" />
+          <ScalarProperty Name="Fecha_Nac" ColumnName="Fecha_Nac" />
+          <ScalarProperty Name="Mail" ColumnName="Mail" />
+          <ScalarProperty Name="Handicap" ColumnName="Handicap" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PartidoSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.Partido)">
+        <MappingFragment StoreEntitySet="PartidoSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+          <ScalarProperty Name="Administrador" ColumnName="Administrador" />
+          <ScalarProperty Name="EstadoPartidoId" ColumnName="EstadoPartidoId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="InscripcionSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.Inscripcion)">
+        <MappingFragment StoreEntitySet="InscripcionSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="PartidoId" ColumnName="PartidoId" />
+          <ScalarProperty Name="JugadorId" ColumnName="JugadorId" />
+          <ScalarProperty Name="TipoInscripcionId" ColumnName="TipoInscripcionId" />
+          <ScalarProperty Name="Comentario" ColumnName="Comentario" />
+          <ScalarProperty Name="EquipoId" ColumnName="EquipoId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CalificacionSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.Calificacion)">
+        <MappingFragment StoreEntitySet="CalificacionSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Nota" ColumnName="Nota" />
+          <ScalarProperty Name="Comentario" ColumnName="Comentario" />
+          <ScalarProperty Name="JugadorCalificadorId" ColumnName="JugadorCalificadorId" />
+          <ScalarProperty Name="JugadorCalificadoId" ColumnName="JugadorCalificadoId" />
+          <ScalarProperty Name="PartidoId" ColumnName="PartidoId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EstadoPartidoSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.EstadoPartido)">
+        <MappingFragment StoreEntitySet="EstadoPartidoSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="InfraccionSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.Infraccion)">
+        <MappingFragment StoreEntitySet="InfraccionSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+          <ScalarProperty Name="Motivo" ColumnName="Motivo" />
+          <ScalarProperty Name="JugadorId" ColumnName="JugadorId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AmistadSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.Amistad)">
+        <MappingFragment StoreEntitySet="AmistadSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="JugadorId" ColumnName="JugadorId" />
+          <ScalarProperty Name="JugadorId1" ColumnName="JugadorId1" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TipoInscripcionSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.TipoInscripcion)">
+        <MappingFragment StoreEntitySet="TipoInscripcionSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EquipoSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.Equipo)">
+        <MappingFragment StoreEntitySet="EquipoSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="PartidoId" ColumnName="PartidoId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

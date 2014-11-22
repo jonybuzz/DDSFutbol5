@@ -1,0 +1,36 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Express 2013 for Web
+VisualStudioVersion = 12.0.30723.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Futbol5", "Futbol5\Futbol5.csproj", "{B0E2CFA8-DD85-47D4-B3B3-828BB0B5770D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Futbol5.Tests", "Futbol5.Tests\Futbol5.Tests.csproj", "{D9466C84-896B-44F1-A685-EC5FE440C79C}"
+EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "FutbolDatabaseProject", "FutbolDatabaseProject\FutbolDatabaseProject.sqlproj", "{01C80408-46C1-4A4B-90AE-9C564CA913F8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B0E2CFA8-DD85-47D4-B3B3-828BB0B5770D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B0E2CFA8-DD85-47D4-B3B3-828BB0B5770D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B0E2CFA8-DD85-47D4-B3B3-828BB0B5770D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B0E2CFA8-DD85-47D4-B3B3-828BB0B5770D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D9466C84-896B-44F1-A685-EC5FE440C79C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D9466C84-896B-44F1-A685-EC5FE440C79C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D9466C84-896B-44F1-A685-EC5FE440C79C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D9466C84-896B-44F1-A685-EC5FE440C79C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{01C80408-46C1-4A4B-90AE-9C564CA913F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{01C80408-46C1-4A4B-90AE-9C564CA913F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{01C80408-46C1-4A4B-90AE-9C564CA913F8}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{01C80408-46C1-4A4B-90AE-9C564CA913F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{01C80408-46C1-4A4B-90AE-9C564CA913F8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{01C80408-46C1-4A4B-90AE-9C564CA913F8}.Release|Any CPU.Deploy.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

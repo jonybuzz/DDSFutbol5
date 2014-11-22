@@ -1,0 +1,36 @@
+﻿@model Futbol5.Models.Inscripcion
+
+@{
+    ViewBag.Title = "Detalles";
+}
+
+<h2>Detalles</h2>
+
+<fieldset>
+    <legend>Inscripcion</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Partido)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Partido)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Jugador.Nombre)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Jugador.Nombre)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.TipoInscripcion.Descripcion)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.TipoInscripcion.Descripcion)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Editar", "Edit", new { id=Model.Id }) |
+    @Html.ActionLink("Listado", "Index")
+</p>

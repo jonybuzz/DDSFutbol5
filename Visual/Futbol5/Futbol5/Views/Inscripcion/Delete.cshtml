@@ -1,0 +1,40 @@
+﻿@model Futbol5.Models.Inscripcion
+
+@{
+    ViewBag.Title = "Eliminar Inscripción";
+}
+
+<h2>Eliminar Inscripción</h2>
+
+<h3>Seguro desea eliminarla?</h3>
+<fieldset>
+    <legend>Inscripcion</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Partido)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Partido)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Jugador.Nombre)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Jugador.Nombre)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.TipoInscripcion.Descripcion)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.TipoInscripcion.Descripcion)
+    </div>
+</fieldset>
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    <p>
+        <input type="submit" value="Delete" /> |
+        @Html.ActionLink("Listado", "Index")
+    </p>
+}

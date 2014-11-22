@@ -1,0 +1,52 @@
+﻿@model IEnumerable<Futbol5.Models.Partido>
+
+@{
+    ViewBag.Title = "Partidos";
+}
+
+<h2>Partidos</h2>
+
+<p>
+    @Html.ActionLink("Crear nuevo Partido", "Create")
+</p>
+<table>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Fecha)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Administrador)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EstadoPartido.Descripcion)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Id)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Fecha)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Administrador)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EstadoPartido.Descripcion)
+        </td>
+        <td>
+            @Html.ActionLink("Editar", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Detalles", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Eliminar", "Delete", new { id = item.Id }) |
+            @Html.ActionLink("Generar Equipos", "GenerarEquipos", new { id = item.Id })
+        </td>
+    </tr>
+}
+
+</table>

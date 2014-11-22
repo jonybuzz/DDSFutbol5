@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="31f226865d154b41bcaa8b0808ea6277" Name="Diagram1" ZoomLevel="86" >
+        <EntityTypeShape EntityType="Model.Jugador" Width="1.5" PointX="6" PointY="2.875" />
+        <EntityTypeShape EntityType="Model.Partido" Width="1.5" PointX="3" PointY="3.25" />
+        <EntityTypeShape EntityType="Model.Inscripcion" Width="1.5" PointX="3.75" PointY="8.75" IsExpanded="true" />
+        <AssociationConnector Association="Model.InscripcionPartido" />
+        <AssociationConnector Association="Model.InscripcionJugador" />
+        <EntityTypeShape EntityType="Model.Calificacion" Width="1.5" PointX="0.75" PointY="3.125" />
+        <AssociationConnector Association="Model.CalificacionCalificador" />
+        <AssociationConnector Association="Model.CalificacionCalificado" />
+        <AssociationConnector Association="Model.CalificacionPartido" />
+        <EntityTypeShape EntityType="Model.EstadoPartido" Width="1.5" PointX="0.75" PointY="0.75" />
+        <AssociationConnector Association="Model.EstadoPartidoPartido" />
+        <EntityTypeShape EntityType="Model.Infraccion" Width="1.5" PointX="3.75" PointY="15.625" />
+        <AssociationConnector Association="Model.InfraccionJugador" />
+        <EntityTypeShape EntityType="Model.Amistad" Width="1.5" PointX="3.75" PointY="12.875" />
+        <AssociationConnector Association="Model.AmigosJugador" />
+        <AssociationConnector Association="Model.AmigosJugador1" />
+        <EntityTypeShape EntityType="Model.TipoInscripcion" Width="1.5" PointX="1.5" PointY="8" />
+        <AssociationConnector Association="Model.TipoInscripcionInscripcion" />
+        <EntityTypeShape EntityType="Model.Equipo" Width="1.5" PointX="1.5" PointY="10.375" />
+        <AssociationConnector Association="Model.EquipoInscripcion" />
+        <AssociationConnector Association="Model.EquipoPartido" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

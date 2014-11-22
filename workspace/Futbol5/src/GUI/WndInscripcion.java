@@ -1,22 +1,21 @@
 package GUI;
 
 import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-
-import javax.swing.JComboBox;
-import javax.swing.JLabel;
-
-import utils.FutbolException;
-import negocio.Partido;
-import negocio.inscripcion.*;
-
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Collection;
 
-import fixture.BD;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
-import java.awt.GridLayout;
+import negocio.Partido;
+import negocio.inscripcion.Abierto;
+import utils.FutbolException;
+import fixture.BD;
 
 public class WndInscripcion {
 
@@ -65,7 +64,7 @@ public class WndInscripcion {
 		JLabel lblTipoDeInscripcion = new JLabel("Tipo de Inscripcion");
 		panel_2.add(lblTipoDeInscripcion);
 		
-		JComboBox comboBoxTipoInsc = new JComboBox(BD.tiposInsc());
+		JComboBox<String[]> comboBoxTipoInsc = new JComboBox<String[]>();
 		comboBoxTipoInsc.setSelectedIndex(0);
 		panel_2.add(comboBoxTipoInsc);
 		
@@ -81,15 +80,26 @@ public class WndInscripcion {
 		} catch (FutbolException e) {
 
 		}
-		JComboBox comboBoxPartidos = new JComboBox(toStringArray(BD.partidosConEstado(Abierto.class)));
+		
+		JComboBox<String> comboBoxPartidos = new JComboBox<String>(toStringArray(BD.partidosConEstado(Abierto.class)));
 		panel_3.add(comboBoxPartidos);
 		
 		JPanel panel_1 = new JPanel();
 		frmAppFutbol.getContentPane().add(panel_1);
 		
+		JButton btnOk = new JButton("OK");
+		btnOk.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
+		
+		JButton btnCancelar = new JButton("Cancelar");
+		panel_1.add(btnCancelar);
+		panel_1.add(btnOk);
+		
 	}
 	
-	private String[] toStringArray(Collection coll){
+	private String[] toStringArray(Collection<?> coll){
 		String[] strarr = new String[coll.size()];
 		for (Object el : coll){
 			strarr[strarr.length-1] = el.toString();

@@ -1,0 +1,129 @@
+﻿@model Futbol5.Models.JugadorViewModel
+
+@{
+    ViewBag.Title = "Detalles";
+}
+
+<h2>Detalles Jugador</h2>
+
+<fieldset>
+    <legend>Jugador</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.jugador.Nombre)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.jugador.Nombre)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.jugador.Apodo)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.jugador.Apodo)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.jugador.Fecha_Nac)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.jugador.Fecha_Nac)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.jugador.Mail)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.jugador.Mail)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.jugador.Handicap)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.jugador.Handicap)
+    </div>
+
+    <div class="display-label">
+        Promedio de calificaciones
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.PromedioCalificaciones)
+    </div>
+
+    <div class="display-label">
+        Calificaciones del último partido
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.PromedioUltPartido)
+    </div>
+
+    <table>
+        <tr>
+            <th>
+                Amigo
+            </th>
+            <th>
+                Apodo
+            </th>
+            <th>
+                Mail
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model.jugador.Amigos)
+        {
+            <tr>
+                <td style="color:@item.Jugador1.HandicapColor">
+                    @Html.DisplayFor(modelItem => item.Jugador1.Nombre)
+                </td>
+                <td style="color:@item.Jugador1.HandicapColor">
+                    @Html.DisplayFor(modelItem => item.Jugador1.Apodo)
+                </td>
+                <td style="color:@item.Jugador1.HandicapColor">
+                    @Html.DisplayFor(modelItem => item.Jugador1.Mail)
+                </td>
+                <td>
+                    @Html.ActionLink("Detalles", "Details", new { id = item.Id })
+                </td>
+            </tr>
+        }
+
+    </table>
+
+    <table>
+        <tr>
+            <th>
+                Fecha de Infracción
+            </th>
+            <th>
+                Motivo
+            </th>
+        </tr>
+
+        @foreach (var item in Model.jugador.Infraccion)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Fecha)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Motivo)
+                </td>
+            </tr>
+        }
+    </table>
+
+    <div class="display-label">
+        Partidos jugados
+    </div>
+    <div class="display-field">
+        <!--Html.DisplayFor(model => model.partidosJugados)-->
+    </div>
+
+</fieldset>
+<p>
+    @Html.ActionLink("Editar", "Edit", new { id=Model.jugador.Id }) |
+    @Html.ActionLink("Listado", "Index")
+</p>

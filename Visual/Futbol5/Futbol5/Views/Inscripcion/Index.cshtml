@@ -1,0 +1,45 @@
+﻿@model IEnumerable<Futbol5.Models.Inscripcion>
+
+@{
+    ViewBag.Title = "Inscripciones";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Inscribir Jugador", "Create")
+</p>
+<table>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Partido)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Jugador.Nombre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TipoInscripcion.Descripcion)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Partido.Administrador)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Jugador.Nombre)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TipoInscripcion.Descripcion)
+        </td>
+        <td>
+            @Html.ActionLink("Editar", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Detalles", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Eliminar", "Delete", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>

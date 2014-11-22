@@ -1,0 +1,54 @@
+﻿@model Futbol5.Models.Jugador
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<fieldset>
+    <legend>Jugador</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Nombre)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Nombre)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Apodo)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Apodo)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Fecha_Nac)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Fecha_Nac)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Mail)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Mail)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Handicap)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Handicap)
+    </div>
+</fieldset>
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    <p>
+        <input type="submit" value="Delete" /> |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+}

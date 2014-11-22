@@ -1,0 +1,52 @@
+﻿@model Futbol5.Models.Partido
+
+@{
+    ViewBag.Title = "Nuevo Partido";
+}
+
+<h2>Nuevo Partido</h2>
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Partido</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Fecha, "Fecha y Hora: (AAAA-MM-DD HH:MM)")
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Fecha)
+            @Html.ValidationMessageFor(model => model.Fecha)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Administrador)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Administrador)
+            @Html.ValidationMessageFor(model => model.Administrador)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.EstadoPartidoId, "Estado del Partido")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("EstadoPartidoId", String.Empty)
+            @Html.ValidationMessageFor(model => model.EstadoPartidoId)
+        </div>
+
+        <p>
+            <input type="submit" value="Crear" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Listado", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
