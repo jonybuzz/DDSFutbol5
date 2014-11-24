@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
+﻿using Futbol5.Models;
 using System.Data.Entity;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using Futbol5.Models;
 
 namespace Futbol5.Controllers
 {

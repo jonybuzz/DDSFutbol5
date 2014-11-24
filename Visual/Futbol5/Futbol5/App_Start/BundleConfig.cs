@@ -8,8 +8,15 @@ namespace Futbol5
         // For more information on Bundling, visit http://go.microsoft.com/fwlink/?LinkId=254725
         public static void RegisterBundles(BundleCollection bundles)
         {
-            bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                        "~/Scripts/jquery-{version}.js"));
+            BundleTable.EnableOptimizations = true;
+
+            bundles.IgnoreList.Clear();
+
+            bundles.Add(new ScriptBundle("~/bundles/jquery")
+                .Include("~/Scripts/jquery-2.1.1.js",
+                "~/Scripts/gridmvc.js",
+                "~/Scripts/bootstrap-datepicker.js",
+                "~/Scripts/bootstrap.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryui").Include(
                         "~/Scripts/jquery-ui-{version}.js"));
@@ -23,15 +30,12 @@ namespace Futbol5
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                         "~/Scripts/modernizr-*"));
 
-            bundles.Add(new ScriptBundle("~/bundles/gridmvc").Include("~/Scripts/jquery-{version}.min.js",
-                "~/Scripts/gridmvc*",
-                "~/Scripts/bootstrap-datepicker*",
-                "~/Scripts/bootstrap.js"));
-
-            bundles.Add(new StyleBundle("~/Content/css").Include("~/Content/site.css",
-                "~/Content/Gridmvc.css",
+            bundles.Add(new StyleBundle("~/Content/css")
+                .Include("~/Content/site.css",
                 "~/Content/gridmvc.datepicker.css",
-                "~/Content/bootstrap.min.css"));
+                "~/Content/bootstrap.min.css",
+                "~/Content/Gridmvc.css",
+                "~/Content/gridmvc.datepicker.min.css"));  //agregado de grid.mvc css
 
             bundles.Add(new StyleBundle("~/Content/themes/base/css").Include(
                         "~/Content/themes/base/jquery.ui.core.css",
@@ -47,10 +51,6 @@ namespace Futbol5
                         "~/Content/themes/base/jquery.ui.progressbar.css",
                         "~/Content/themes/base/jquery.ui.theme.css"));
 
-/*
-                    <script src="@Url.Content("~/Scripts/jquery-1.8.2.min.js")" type="text/javascript"> </script>
-        <link href="@Url.Content("~/Content/Gridmvc.css")" rel="stylesheet" type="text/css" />
-        <script src="@Url.Content("~/Scripts/gridmvc.min.js")" type="text/javascript"> </script>*/
         }
     }
 }

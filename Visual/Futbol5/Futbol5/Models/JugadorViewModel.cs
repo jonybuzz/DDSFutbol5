@@ -19,33 +19,20 @@ namespace Futbol5.Models
         {
             get
             {
-                return jugador.CalificacionesRecibidas.Where(cal => cal.PartidoId == (jugador.CalificacionesRecibidas.OrderByDescending(c => c.Partido.Id).First().PartidoId)).Average(c2 => c2.Nota);
+                if (jugador.CalificacionesRecibidas.Count > 0)
+                    return jugador.CalificacionesRecibidas.Where(cal => cal.PartidoId == (jugador.CalificacionesRecibidas.OrderByDescending(c => c.Partido.Id).First().PartidoId)).Average(c2 => c2.Nota);
+                else return 0;
             }
         }
         public double PromedioCalificaciones
         {
             get
             {
-                return jugador.CalificacionesRecibidas.Average(c => c.Nota);
+                if (jugador.CalificacionesRecibidas.Count > 0)
+                    return jugador.CalificacionesRecibidas.Average(c => c.Nota);
+                else return 0;
             }
         }
 
-        public string HandicapColor
-        {
-            get
-            {
-                if (this.jugador.Handicap != null && this.jugador.Handicap > 8)
-                    return "blue";
-                else return "black";
-            }
-        }
-
-        public bool CumpleFiltro
-        {
-            get
-            {
-                return filtro.cumple(this.jugador);
-            }
-        }
     }
 }

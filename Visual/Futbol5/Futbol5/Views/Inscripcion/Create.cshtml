@@ -30,11 +30,19 @@
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.TipoInscripcionId, "TipoInscripcion")
+            @Html.LabelFor(model => model.TipoInscripcionId, "Tipo de Inscripcion")
         </div>
         <div class="editor-field">
             @Html.DropDownList("TipoInscripcionId", String.Empty)
             @Html.ValidationMessageFor(model => model.TipoInscripcionId)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Comentario, "Comentario")
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Comentario)
+            @Html.ValidationMessageFor(model => model.Comentario)
         </div>
 
         <p>

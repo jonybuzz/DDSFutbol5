@@ -29,6 +29,87 @@
     <div class="display-field">
         @Html.DisplayFor(model => model.EstadoPartido.Descripcion)
     </div>
+
+
+    @if (Model.Equipo.Count <= 0) { 
+    <div class="display-field">
+        Inscripciones
+    </div>
+
+    <table>
+        <tr>
+            <th>
+                Jugador
+            </th>
+            <th>
+                Tipo de Inscripcion
+            </th>
+            <th>
+                Comentario
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model.Inscripcion)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Jugador.Nombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TipoInscripcion.Descripcion)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Comentario)
+                </td>
+                <td>
+                    @Html.ActionLink("Editar", "Edit", "Inscripcion", new { id = item.Id }, null) |
+                    @Html.ActionLink("Detalles", "Details", "Inscripcion", new { id = item.Id }, null) |
+                    @Html.ActionLink("Eliminar", "Delete", "Inscripcion", new { id = item.Id }, null)
+                </td>
+            </tr>
+        }
+    </table>
+    }else {
+        
+        <div class="display-field">
+            Equipos
+        </div>
+
+        <table>
+            <tr>
+                <th>
+                    Jugador
+                </th>
+                <th>
+                    Tipo de Inscripcion
+                </th>
+                <th>
+                    Comentario
+                </th>
+            </tr>
+
+            @foreach (var item in Model.Inscripcion)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Jugador.Nombre)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TipoInscripcion.Descripcion)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Equipo.Id)
+                    </td>
+                </tr>
+            }
+        </table>
+    }
+
+
+    @Html.ActionLink("Generar Equipos", "GenerarEquipos", Model.Id)
+
+
 </fieldset>
 <p>
     @Html.ActionLink("Editar", "Edit", new { id=Model.Id }) |
